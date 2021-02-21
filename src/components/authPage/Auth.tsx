@@ -1,20 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 import axios from "axios";
-import {
-  Button,
-  FormGroup,
-  FormControl,
-  InputLabel,
-  Input,
-} from "@material-ui/core";
 import "./Auth.scss";
+import Register from "./components/register/register";
+import Login from "./components/login/login";
 
 export const Auth: React.FC = () => {
   const [nickname, setNickname] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [showLogin, setShowLogin] = React.useState<boolean>(false);
 
-  const handleLogin = (e: any) => {
+  const handleLogin = (e: any): void => {
     e.preventDefault();
     axios
       .post(`http://localhost:5000/api/`.concat("auth/login"), {
@@ -23,6 +19,10 @@ export const Auth: React.FC = () => {
       })
       .then(
         (res) => {
+          sessionStorage.setItem("token", res.data.token);
+          // window.store.dispatch(getToken(res.data.token));
+          // axios.defaults.headers.common["Authorization"] = res.data.token;
+          console.log(res.config);
           res.status === 200
             ? (document.location.href = "/home")
             : console.log(res.status);
@@ -33,7 +33,7 @@ export const Auth: React.FC = () => {
       );
   };
 
-  const handleSignin = (e: any) => {
+  const handleSignin = (e: any): void => {
     e.preventDefault();
     axios
       .post(`http://localhost:5000/api/`.concat("auth/register"), {
@@ -42,9 +42,10 @@ export const Auth: React.FC = () => {
       })
       .then(
         (res) => {
-          res.status === 201
-            ? (document.location.href = "/home")
-            : console.log(res.status);
+          axios.defaults.headers.common["Authorization"] = res.data.token;
+          // res.status === 201
+          //   ? (document.location.href = "/home")
+          //   : console.log(res.status);
         },
         (err) => {
           console.log(err);
@@ -60,83 +61,29 @@ export const Auth: React.FC = () => {
     setPassword(e.target.value);
   };
 
+  const showLoginSetter = () => setShowLogin((prev) => !prev);
+
   return (
-    <form className="authForm">
-      {(showLogin && (
-        <div className="authDiv">
-          <FormGroup id="auth">
-            <FormControl>
-              <InputLabel>Nickname</InputLabel>
-              <Input
-                aria-describedby="my-helper-text"
-                onChange={nicknameSetter}
-              />
-            </FormControl>
-            <FormControl>
-              <InputLabel>Password</InputLabel>
-              <Input
-                aria-describedby="my-helper-text"
-                type="password"
-                onChange={passwordSetter}
-              />
-            </FormControl>
-          </FormGroup>
-          <div className="authBottom">
-            <p
-              id="linkToRegister"
-              className="log-sign"
-              onClick={() => setShowLogin(false)}
-            >
-              I don't have account.
-            </p>
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              onClick={handleLogin}
-            >
-              Log In
-            </Button>
-          </div>
-        </div>
-      )) || (
-        <div className="authDiv">
-          <FormGroup id="auth">
-            <FormControl>
-              <InputLabel>Nickname</InputLabel>
-              <Input
-                aria-describedby="my-helper-text"
-                onChange={nicknameSetter}
-              />
-            </FormControl>
-            <FormControl>
-              <InputLabel>Password</InputLabel>
-              <Input
-                aria-describedby="my-helper-text"
-                type="password"
-                onChange={passwordSetter}
-              />
-            </FormControl>
-          </FormGroup>
-          <div className="authBottom">
-            <p
-              id="linkToLogin"
-              className="log-sign"
-              onClick={() => setShowLogin(true)}
-            >
-              I already have account.
-            </p>
-            <Button
-              type="button"
-              onClick={handleSignin}
-              variant="contained"
-              color="primary"
-            >
-              Sign In
-            </Button>
-          </div>
-        </div>
-      )}
-    </form>
+    <div className="authPage">
+      <div className="auth">
+        <form className="authForm">
+          {(showLogin && (
+            <Login
+              nicknameSetter={nicknameSetter}
+              passwordSetter={passwordSetter}
+              showLoginSetter={showLoginSetter}
+              handleLogin={handleLogin}
+            />
+          )) || (
+            <Register
+              nicknameSetter={nicknameSetter}
+              passwordSetter={passwordSetter}
+              showLoginSetter={showLoginSetter}
+              handleSignin={handleSignin}
+            />
+          )}
+        </form>
+      </div>
+    </div>
   );
 };
