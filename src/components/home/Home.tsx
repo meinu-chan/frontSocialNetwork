@@ -13,6 +13,7 @@ export const Home: React.FC = () => {
         },
       })
       .then((res) => {
+        console.log(res);
         setNickname(res.data.nickname);
       });
   }, []);

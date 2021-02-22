@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import {
   Button,
@@ -6,6 +7,7 @@ import {
   InputLabel,
   Input,
 } from "@material-ui/core";
+import axios from "axios";
 
 import IAuth from "../../../../Interfaces/IAuth";
 
@@ -13,11 +15,43 @@ const login: React.FC<IAuth> = ({
   nicknameSetter,
   passwordSetter,
   showLoginSetter,
-  handleLogin,
+  nickname,
+  password,
 }) => {
+  const [showError, setShowError] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<string>("");
+
+  const handleLogin = (e: any): void => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:5000/api/`.concat("auth/login"), {
+        nickname,
+        password,
+      })
+      .then(
+        (res) => {
+          sessionStorage.setItem("token", res.data.token);
+          res.status === 200
+            ? (document.location.href = "/home")
+            : console.log(res.status);
+        },
+        (err) => {
+          if (err.response) {
+            setShowError(true);
+            setError(err.response.data.message);
+          } else if (err.request) {
+            console.log(err.request);
+          } else {
+            console.log(err);
+          }
+        }
+      );
+  };
+
   return (
     <>
       <h2>Log In</h2>
+      {showError && <p className="error">{error}</p>}
       <div className="authDiv">
         <FormGroup id="auth">
           <FormControl>
