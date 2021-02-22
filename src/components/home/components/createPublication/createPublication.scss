@@ -1,0 +1,26 @@
+#create-publication-textarea {
+  //   border: 0px;
+  resize: none !important;
+  &:focus {
+    outline: 0;
+  }
+}
+
+.create-publication {
+  flex-direction: column;
+  max-width: fit-content;
+}
+
+.create-publication-bottom {
+  margin: 1% 0;
+}
+
+.create-publication-header {
+  padding-left: 5px;
+  justify-content: center;
+  margin-top: 10px;
+  background-color: rgba(145, 145, 145, 0.842);
+  h4 {
+    margin: 0;
+  }
+}

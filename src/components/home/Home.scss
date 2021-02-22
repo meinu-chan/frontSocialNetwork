@@ -1,0 +1,31 @@
+.home-main {
+  margin-top: 30px;
+  //   border-radius: 1%;
+  background-color: #fff;
+  //   height: 100vh;
+  padding: 30px;
+  ul {
+    list-style: none;
+  }
+}
+
+.user-nickname {
+  font-size: 30px;
+}
+
+.user-data {
+  padding: 10px 0;
+  .main-ul {
+    flex-direction: column;
+  } //   flex-direction: column;
+}
+
+.user-image {
+  border: 1px solid rgba(0, 0, 0, 0.377);
+  //   border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  background-image: url(../../assets/images/default-user-image.png);
+  background: cover no-repeat;
+  background-size: 100% 100%;
+}
