@@ -8,7 +8,7 @@ const FriendsList: React.FC = () => {
   return (
     <div className="user-friends">
       <div className="friends-header">
-        <h3>Friends: 23</h3>
+        <h4>Friends: 23</h4>
       </div>
       <div className="list-friends">
         <ul className="d-flex">

@@ -1,0 +1,77 @@
+$bg-color: rgba(145, 145, 145, 0.842);
+$like-dislikes-color: #ff1919;
+
+.publication-avatar {
+  margin-left: 1%;
+  height: 40px;
+  width: 40px;
+  border: 1px solid rgb(126, 126, 126);
+  border-radius: 50%;
+  background-image: url(../../../../assets/images/default-user-image.png);
+  background: cover no-repeat;
+  background-size: 100% 100%;
+}
+
+.publication-header {
+  background-color: $bg-color;
+  align-items: center;
+  justify-content: flex-start;
+  max-height: fit-content;
+  p {
+    margin: 0;
+  }
+}
+
+.publication-name {
+  cursor: default;
+  margin: 1%;
+}
+
+.publication {
+  max-width: 500px;
+}
+
+.publication-data {
+  cursor: default;
+  justify-self: flex-end;
+}
+
+.publication-body {
+  cursor: default;
+  padding: 1%;
+  background-color: #fff;
+}
+
+.publication-bottom {
+  background-color: $bg-color;
+}
+
+.publication-evaluation {
+  align-items: center;
+  font-size: 20px;
+  justify-content: flex-end;
+}
+
+.publication-likes {
+  cursor: default;
+  margin: 1%;
+  padding: 1%;
+  .like {
+    margin-right: 10%;
+  }
+  &:hover {
+    color: $like-dislikes-color;
+  }
+}
+
+.publication-dislikes {
+  cursor: default;
+  margin: 1%;
+  padding: 1%;
+  .dislike {
+    margin-right: 10%;
+  }
+  &:hover {
+    color: $like-dislikes-color;
+  }
+}
