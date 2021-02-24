@@ -1,12 +1,10 @@
 .home-main {
-  margin-top: 30px;
-  //   border-radius: 1%;
+  margin: 30px auto;
   background-color: #fff;
-  //   height: 100vh;
   padding: 30px;
-  ul {
-    list-style: none;
-  }
+  flex-direction: column;
+  min-height: 100vh;
+  border-radius: 15px;
 }
 
 .user-nickname {
@@ -15,17 +13,39 @@
 
 .user-data {
   padding: 10px 0;
-  .main-ul {
-    flex-direction: column;
+  width: fit-content;
+  ul {
+    align-self: flex-start;
   }
 }
 
 .user-image {
   border: 1px solid rgba(0, 0, 0, 0.377);
-  //   border-radius: 50%;
   height: 250px;
   width: 250px;
   background-image: url(../../assets/images/default-user-image.png);
   background: cover no-repeat;
   background-size: 100% 100%;
+}
+
+.main-ul {
+  flex-direction: column;
+}
+
+.user-publication {
+  width: fit-content;
+  margin: 10px 0;
+  border: 1px solid rgba(0, 0, 0, 0.377);
+}
+
+.user-body {
+  align-items: flex-end;
+  flex-direction: column;
+  margin: 2% 5%;
+}
+
+.user-create-publication {
+  margin-left: 25%;
+  align-self: center;
+  width: fit-content;
 }

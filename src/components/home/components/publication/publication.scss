@@ -28,7 +28,7 @@ $like-dislikes-color: #ff1919;
 }
 
 .publication {
-  max-width: 500px;
+  width: 500px;
 }
 
 .publication-data {
@@ -50,6 +50,7 @@ $like-dislikes-color: #ff1919;
   align-items: center;
   font-size: 20px;
   justify-content: flex-end;
+  height: 30px;
 }
 
 .publication-likes {
@@ -58,9 +59,6 @@ $like-dislikes-color: #ff1919;
   padding: 1%;
   .like {
     margin-right: 10%;
-  }
-  &:hover {
-    color: $like-dislikes-color;
   }
 }
 

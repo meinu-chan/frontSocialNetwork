@@ -4,30 +4,36 @@ import axios from "axios";
 
 import "./createPublication.scss";
 
-const CreatePublication: React.FC = () => {
+interface ICreatePublication {
+  getPublications: VoidFunction;
+}
+
+const CreatePublication: React.FC<ICreatePublication> = ({
+  getPublications,
+}) => {
   const [text, setText] = React.useState<string>("");
 
   const textSetter = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+    const text = e.target.value.trim();
+    setText(text);
   };
 
   const addPublication = async () => {
-    await axios
-      .put(
-        `http://localhost:5000/api/`.concat("page/publication"),
-        {
-          value: text,
+    await axios.put(
+      `http://localhost:5000/api/`.concat("page/publication"),
+      {
+        value: text,
+      },
+      {
+        headers: {
+          Authorization: sessionStorage.getItem("token"),
         },
-        {
-          headers: {
-            Authorization: sessionStorage.getItem("token"),
-          },
-        }
-      )
-      .then((res) => console.log(res));
+      }
+    );
+    // .then((res) => console.log(res));
 
     setText("");
-    // document.getElementById("create-publication-textarea")!. = "";
+    getPublications();
   };
 
   return (
