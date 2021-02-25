@@ -28,10 +28,16 @@ $like-dislikes-color: #ff1919;
 }
 
 .publication {
+  // border: 1px solid rgba(0, 0, 0, 0.377);
+  width: 500px;
+}
+.publication-main {
+  border: 1px solid rgba(0, 0, 0, 0.377);
   width: 500px;
 }
 
 .publication-data {
+  margin-left: 5%;
   cursor: default;
   justify-self: flex-end;
 }
@@ -71,5 +77,11 @@ $like-dislikes-color: #ff1919;
   }
   &:hover {
     color: $like-dislikes-color;
+  }
+}
+
+.publication-comments {
+  flex-direction: column;
+  ul {
   }
 }

@@ -1,0 +1,35 @@
+.comment {
+  margin-top: 10px;
+  margin-left: 20%;
+  min-width: 80%;
+  flex-direction: column;
+  min-width: 80%;
+}
+
+.comment-user-avatar {
+  margin: 0 1%;
+  height: 20px;
+  width: 20px;
+  border: 1px solid rgb(126, 126, 126);
+  border-radius: 50%;
+  background-image: url(../../../../../../assets/images/default-user-image.png);
+  background: cover no-repeat;
+  background-size: 100% 100%;
+}
+
+.comment-header {
+  padding: 0 1%;
+  align-items: center;
+  background-color: #018545;
+  font-family: Poppins;
+  color: rgb(0, 0, 0);
+}
+
+.comment-date-main {
+  justify-content: flex-end;
+}
+
+.comment-body {
+  padding: 0 1%;
+  border: 1px solid rgb(133, 133, 133);
+}

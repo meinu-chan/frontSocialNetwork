@@ -11,28 +11,30 @@ interface ICreatePublication {
 const CreatePublication: React.FC<ICreatePublication> = ({
   getPublications,
 }) => {
-  const [text, setText] = React.useState<string>("");
-
-  const textSetter = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const text = e.target.value.trim();
-    setText(text);
-  };
+  const textareaRef = React.useRef<any>();
 
   const addPublication = async () => {
-    await axios.put(
-      `http://localhost:5000/api/`.concat("page/publication"),
-      {
-        value: text,
-      },
-      {
-        headers: {
-          Authorization: sessionStorage.getItem("token"),
-        },
-      }
-    );
-    // .then((res) => console.log(res));
+    textareaRef.current &&
+      (await axios
+        .put(
+          `http://localhost:5000/api/`.concat("publication"),
+          {
+            value: textareaRef.current.value,
+          },
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("token"),
+            },
+          }
+        )
+        .catch((err) => {
+          if (err.response) {
+            err.response.status === 401
+              ? (document.location.href = "/")
+              : console.log(err.response);
+          }
+        }));
 
-    setText("");
     getPublications();
   };
 
@@ -43,13 +45,12 @@ const CreatePublication: React.FC<ICreatePublication> = ({
       </div>
       <div className="create-publication-textarea d-flex flex-column">
         <textarea
+          ref={textareaRef}
           id="create-publication-textarea"
           placeholder="Tell world about your day..."
           cols={50}
           rows={5}
           maxLength={500}
-          value={text}
-          onChange={textSetter}
         ></textarea>
       </div>
       <div className="create-publication-bottom d-flex flex-column align-items-end">

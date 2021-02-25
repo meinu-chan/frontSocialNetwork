@@ -1,11 +1,3 @@
-#create-publication-textarea {
-  //   border: 0px;
-  resize: none !important;
-  &:focus {
-    outline: 0;
-  }
-}
-
 .create-publication {
   flex-direction: column;
   width: fit-content;

@@ -12,7 +12,6 @@ export const Home: React.FC = () => {
   const [publications, setPublications] = React.useState<Array<any>>();
 
   React.useEffect(() => {
-    // console.log(sessionStorage.getItem("token"));
     axios
       .get(`http://localhost:5000/api/`.concat("page"), {
         headers: {
@@ -25,22 +24,24 @@ export const Home: React.FC = () => {
       });
   }, []);
 
-  // console.log(publications);
-
   const getAllPublications = () => {
     axios
-      .get(`http://localhost:5000/api/`.concat("page/publication/getAll"), {
+      .get(`http://localhost:5000/api/`.concat("publication/getAll"), {
         headers: {
           Authorization: sessionStorage.getItem("token"),
         },
       })
       .then((res) => {
         setPublications(res.data.publications);
-        console.log(res);
+      })
+      .catch((err) => {
+        if (err.response) {
+          err.response.status === 401
+            ? (document.location.href = "/")
+            : console.log(err.response);
+        }
       });
   };
-
-  // publications && getAllPublications(publications);
 
   return (
     <div className="container home-main d-flex">
