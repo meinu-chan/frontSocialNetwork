@@ -13,6 +13,10 @@ const CreatePublication: React.FC<ICreatePublication> = ({
 }) => {
   const textareaRef = React.useRef<any>();
 
+  const areaFocus = () => {
+    textareaRef.current && textareaRef.current.focus();
+  };
+
   const addPublication = async () => {
     textareaRef.current &&
       (await axios
@@ -27,6 +31,9 @@ const CreatePublication: React.FC<ICreatePublication> = ({
             },
           }
         )
+        .then(() => {
+          textareaRef.current.value = "";
+        })
         .catch((err) => {
           if (err.response) {
             err.response.status === 401
@@ -43,20 +50,29 @@ const CreatePublication: React.FC<ICreatePublication> = ({
       <div className="create-publication-header">
         <h4>Set new publication</h4>
       </div>
-      <div className="create-publication-textarea d-flex flex-column">
-        <textarea
-          ref={textareaRef}
-          id="create-publication-textarea"
-          placeholder="Tell world about your day..."
-          cols={50}
-          rows={5}
-          maxLength={500}
-        ></textarea>
-      </div>
-      <div className="create-publication-bottom d-flex flex-column align-items-end">
-        <Button variant="contained" color="primary" onClick={addPublication}>
-          Public
-        </Button>
+      <div className="create-publication-empty-field">
+        <div className="create-publication-textarea d-flex flex-column">
+          <textarea
+            ref={textareaRef}
+            className="create-publication-textarea"
+            placeholder="Tell world about your day..."
+            // cols={50}
+            // rows={5}
+            maxLength={500}
+          ></textarea>
+        </div>
+        <div
+          className="create-publication-bottom d-flex flex-column align-items-end"
+          onClick={areaFocus}
+        >
+          <Button
+            className="create-publication-button"
+            variant="contained"
+            onClick={addPublication}
+          >
+            Public
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-import Comment from "./components/comment/comment";
-import AddComment from "./components/addComment/addComment";
+import ModalWindow from "./components/modalWindow/modalWindow";
 
 import "./publication.scss";
 
@@ -32,6 +31,8 @@ const Publication: React.FC<IPublication> = ({
 
   const [coms, setComs] = React.useState<Array<string>>(comments);
 
+  const [showComments, setShowComments] = React.useState<boolean>(false);
+
   const ratePublic = () => {
     axios
       .put(
@@ -46,11 +47,12 @@ const Publication: React.FC<IPublication> = ({
         }
       )
       .then((res) => {
-        const { flag } = res.data;
+        console.log(res.data);
+        const { flag, publication } = res.data;
         const likeDiv = document.getElementById(`${_id}`)!;
-        flag
-          ? (likeDiv.style.color = "#ff1919 ")
-          : (likeDiv.style.color = "#000 ");
+        publication.likedUsers.includes(userId)
+          ? (likeDiv.style.color = "#000 ")
+          : (likeDiv.style.color = "#ff1919 ");
         flag ? setLike(like + 1) : setLike(like - 1);
         return flag;
       })
@@ -75,7 +77,19 @@ const Publication: React.FC<IPublication> = ({
   }, []);
 
   const dateFormatter = (date: Date) => {
-    return `${date.getHours()}:${date.getMinutes()} ${date.toDateString()}`;
+    const minutes =
+      date.getMinutes() < 10
+        ? `0${date.getMinutes()}`
+        : date.getMinutes().toString();
+    return `${date.getHours()}:${minutes} ${date.toDateString()}`;
+  };
+
+  const handleShow = () => {
+    setShowComments(true);
+  };
+
+  const handleClose = () => {
+    setShowComments(false);
   };
 
   return (
@@ -86,42 +100,46 @@ const Publication: React.FC<IPublication> = ({
           <div className="publication-name col-4">
             <h4>{nickname}</h4>
           </div>
-          <div className="col-2"></div>
-          <div className="publication-data">
+          <div className="publication-data w-50 d-flex">
             <p>{dateFormatter(new Date(date))}</p>
           </div>
         </div>
-        <div className="publication-body">
-          <p>{value}</p>
-        </div>
-        <div className="publication-bottom">
-          <div className="publication-evaluation d-flex ">
-            <div
-              id={`${_id}`}
-              className="publication-likes d-flex "
-              onClick={ratePublic}
-            >
-              <div className="like">
-                <FontAwesomeIcon icon={faHeart} />
+        <div className="publication-main">
+          <div className="publication-body">
+            <p>{value}</p>
+          </div>
+          <div className="publication-bottom">
+            <div className="publication-evaluation d-flex ">
+              <div className="publication-comments d-flex" onClick={handleShow}>
+                <div className="comments">
+                  <FontAwesomeIcon icon={faComment} />
+                </div>
+                <p>{coms.length}</p>
               </div>
-              <p>{like}</p>
+
+              <div
+                id={`${_id}`}
+                className="publication-likes d-flex "
+                onClick={ratePublic}
+              >
+                <div className="like">
+                  <FontAwesomeIcon icon={faHeart} />
+                </div>
+                <p>{like}</p>
+              </div>
+              <ModalWindow
+                nickname={nickname}
+                date={dateFormatter(new Date(date))}
+                value={value}
+                _id={_id}
+                setComs={setComs}
+                coms={coms}
+                handleClose={handleClose}
+                open={showComments}
+              />
             </div>
           </div>
         </div>
-      </div>
-      <div className="publication-comments">
-        <div className="addComment">
-          <AddComment publicId={_id.toString()} updateComments={setComs} />
-        </div>
-        <ul className="d-flex flex-column-reverse">
-          {coms.map((comment, index) => {
-            return (
-              <div key={`${index}_${comment}`}>
-                <Comment commentId={comment} />
-              </div>
-            );
-          })}
-        </ul>
       </div>
     </div>
   );

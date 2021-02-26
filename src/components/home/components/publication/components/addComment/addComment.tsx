@@ -10,40 +10,47 @@ interface IAddComment {
 }
 
 const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
-  const refTextarea = React.useRef<any>();
+  const textareaRef = React.useRef<any>();
 
   const addComment = () => {
-    axios
-      .put(
-        `http://localhost:5000/api/`.concat("comment/addComment"),
-        {
-          publicId,
-          value: refTextarea.current.value,
-        },
-        {
-          headers: {
-            Authorization: sessionStorage.getItem("token"),
+    const value = textareaRef.current.value.trim();
+    if (value.length !== 0) {
+      axios
+        .put(
+          `http://localhost:5000/api/`.concat("comment/addComment"),
+          {
+            publicId,
+            value: textareaRef.current.value,
           },
-        }
-      )
-      .then((res) => {
-        refTextarea.current.value = "";
-        updateComments((prev) => [...prev, res.data.comment._id]);
-      })
-      .catch((err) => {
-        if (err.response) {
-          err.response.status === 401
-            ? (document.location.href = "/")
-            : console.log(err.response);
-        }
-      });
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("token"),
+            },
+          }
+        )
+        .then((res) => {
+          textareaRef.current.value = "";
+          updateComments((prev) => [...prev, res.data.comment._id]);
+        })
+        .catch((err) => {
+          if (err.response) {
+            err.response.status === 401
+              ? (document.location.href = "/")
+              : console.log(err.response);
+          }
+        });
+    }
+  };
+
+  const areaFocus = () => {
+    textareaRef.current && textareaRef.current.focus();
   };
 
   return (
-    <div className="addComment d-flex">
+    <div className="addComment d-flex" onClick={areaFocus}>
       <div className="addComment-textarea">
         <textarea
-          ref={refTextarea}
+          ref={textareaRef}
           placeholder="Set comment..."
           className="addComment-textarea"
         ></textarea>

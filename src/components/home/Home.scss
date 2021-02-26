@@ -16,6 +16,7 @@
   width: fit-content;
   ul {
     align-self: flex-start;
+    padding: 0;
   }
 }
 
@@ -30,6 +31,8 @@
 
 .main-ul {
   flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .user-publication {
@@ -38,13 +41,17 @@
 }
 
 .user-body {
-  align-items: flex-end;
+  height: 100%;
+  align-items: center;
   flex-direction: column;
   margin: 2% 5%;
+  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 1%;
 }
 
 .user-create-publication {
-  margin-left: 25%;
+  // margin-left: 25%;
   align-self: center;
   width: fit-content;
+  width: 100%;
 }

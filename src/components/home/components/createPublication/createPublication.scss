@@ -4,16 +4,41 @@
 }
 
 .create-publication-bottom {
-  margin: 1% 0;
+  margin: 1%;
+  cursor: text;
+}
+
+.create-publication {
+  margin: 0 10%;
+  width: 80%;
+  font-family: Poppins;
 }
 
 .create-publication-header {
+  // font-family: Poppins;
   cursor: default;
   padding-left: 5px;
   justify-content: center;
   margin-top: 10px;
-  background-color: rgba(145, 145, 145, 0.842);
+  border: 2px solid #e84a5f;
+  border-bottom: none;
+  margin-bottom: -1px;
   h4 {
     margin: 0;
   }
+}
+
+.create-publication-textarea {
+  width: 100%;
+  border: none;
+  // border: 1px solid #e84a5f;
+}
+
+.create-publication-button {
+  background-color: #2a363b !important;
+  color: #fff !important;
+}
+
+.create-publication-empty-field {
+  border: 2px solid #e84a5f;
 }
