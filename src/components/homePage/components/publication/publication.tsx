@@ -68,9 +68,6 @@ const Publication: React.FC<IPublication> = ({
 
   React.useEffect(() => {
     const likeDiv = document.getElementById(`${_id}`)!;
-
-    console.log(">>>>>>> userId", userId);
-    console.log(">>>>>>> likedUser", likedUsers);
     if (likedUsers.includes(userId)) {
       likeDiv.style.color = "#ff1919 ";
     } else {

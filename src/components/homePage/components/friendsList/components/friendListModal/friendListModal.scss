@@ -1,0 +1,27 @@
+.modal-window-friend-avatar {
+  border: 1px solid rgb(126, 126, 126);
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  background-image: url(../../../../../../assets/images/default-user-image.png);
+  background: cover no-repeat;
+  background-size: 100% 100%;
+}
+
+.modal-window-friend-nickname {
+  text-align: center;
+}
+
+.modal-window-friend {
+  cursor: pointer;
+}
+
+.modal-window-main {
+  padding: 10%;
+  width: fit-content !important;
+  flex-direction: column;
+  justify-content: center;
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+}
