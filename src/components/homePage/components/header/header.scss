@@ -1,0 +1,30 @@
+.main-header {
+  position: fixed;
+  width: 100% !important;
+  flex-grow: 1;
+  top: 0;
+  left: 0;
+}
+
+.m-header {
+  background-color: #2a363b !important;
+}
+
+.main-header-search {
+  flex-grow: 1;
+  position: relative;
+  border-radius: 4px;
+  margin-left: 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 4px;
+}
+
+.header-input {
+  &:focus {
+    outline: none;
+  }
+}
+
+.header-searchIcon {
+  cursor: pointer;
+}

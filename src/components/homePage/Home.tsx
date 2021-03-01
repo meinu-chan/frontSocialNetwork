@@ -6,10 +6,30 @@ import "./Home.scss";
 import FriendsList from "./components/friendsList/friendsList";
 import CreatePublication from "./components/createPublication/createPublication";
 import Publication from "./components/publication/publication";
+import Header from "./components/header/header";
 
 export const Home: React.FC = () => {
   const [nickname, setNickname] = React.useState<string>("");
   const [publications, setPublications] = React.useState<Array<any>>();
+  const [userId, setUserId] = React.useState<string>();
+
+  const getAllPublications = React.useCallback(() => {
+    userId &&
+      axios
+        .get(
+          `http://localhost:5000/api/`.concat(`publication/getAll/${userId}`)
+        )
+        .then((res) => {
+          setPublications(res.data.publications);
+        })
+        .catch((err) => {
+          if (err.response) {
+            err.response.status === 401
+              ? (document.location.href = "/")
+              : console.log(err.response);
+          }
+        });
+  }, [userId]);
 
   React.useEffect(() => {
     axios
@@ -20,31 +40,14 @@ export const Home: React.FC = () => {
       })
       .then((res) => {
         setNickname(res.data.nickname);
+        setUserId(res.data._id);
         getAllPublications();
       });
-  }, []);
-
-  const getAllPublications = () => {
-    axios
-      .get(`http://localhost:5000/api/`.concat("publication/getAll"), {
-        headers: {
-          Authorization: sessionStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        setPublications(res.data.publications);
-      })
-      .catch((err) => {
-        if (err.response) {
-          err.response.status === 401
-            ? (document.location.href = "/")
-            : console.log(err.response);
-        }
-      });
-  };
+  }, [getAllPublications]);
 
   return (
     <div className="container home-main d-flex">
+      <Header />
       <div className="user-about d-flex">
         <div className="user-image"></div>
         <div className="user-nickname">{nickname}</div>

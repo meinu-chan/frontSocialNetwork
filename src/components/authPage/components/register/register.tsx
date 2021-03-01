@@ -41,10 +41,10 @@ const register: React.FC<IAuth> = ({
         })
         .then(
           (res) => {
-            console.log(res);
+            sessionStorage.setItem("userId", res.data.userId);
             sessionStorage.setItem("token", res.data.token);
             res.status === 201
-              ? (document.location.href = "/home")
+              ? (document.location.href = `/id=${res.data.userId}`)
               : console.log(res.status);
           },
           (err) => {

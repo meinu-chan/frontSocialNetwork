@@ -2,13 +2,15 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Auth } from "./components/authPage/Auth";
-import { Home } from "./components/home/Home";
+import { Home } from "./components/homePage/Home";
+import UserPage from "./components/userPage/userPage";
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <Route path="/" exact component={Auth} />
-        <Route path="/home" component={Home} />
+        <Route path="/:id" exact component={Home} />
+        <Route path="/user/:id" component={UserPage} />
       </BrowserRouter>
     );
   }

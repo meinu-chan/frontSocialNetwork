@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import getTokenReducer from "./getToken";
+import userReducer from "./user";
 
 const rootReducer = combineReducers({
-    getToken: getTokenReducer,
+    user: userReducer
     //another reducers
 })
 

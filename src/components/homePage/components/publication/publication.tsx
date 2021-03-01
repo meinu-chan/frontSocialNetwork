@@ -39,6 +39,7 @@ const Publication: React.FC<IPublication> = ({
         `http://localhost:5000/api/`.concat("publication/rate"),
         {
           publicId: _id,
+          userId,
         },
         {
           headers: {
@@ -47,8 +48,8 @@ const Publication: React.FC<IPublication> = ({
         }
       )
       .then((res) => {
-        console.log(res.data);
         const { flag, publication } = res.data;
+        console.log(flag, publication);
         const likeDiv = document.getElementById(`${_id}`)!;
         publication.likedUsers.includes(userId)
           ? (likeDiv.style.color = "#000 ")
@@ -68,6 +69,8 @@ const Publication: React.FC<IPublication> = ({
   React.useEffect(() => {
     const likeDiv = document.getElementById(`${_id}`)!;
 
+    console.log(">>>>>>> userId", userId);
+    console.log(">>>>>>> likedUser", likedUsers);
     if (likedUsers.includes(userId)) {
       likeDiv.style.color = "#ff1919 ";
     } else {

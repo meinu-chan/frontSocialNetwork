@@ -59,13 +59,11 @@ const ModalWindow: React.FC<IModalWindow> = ({
               <AddComment publicId={_id.toString()} updateComments={setComs} />
             </div>
             <ul className="d-flex flex-column-reverse">
-              {coms.map((comment, index) => {
-                return (
-                  <div key={`${index}_${comment}`}>
-                    <Comment commentId={comment} />
-                  </div>
-                );
-              })}
+              {coms.map((comment, index) => (
+                <div key={`${index}_${comment}`}>
+                  <Comment commentId={comment} />
+                </div>
+              ))}
             </ul>
           </div>
         </div>
