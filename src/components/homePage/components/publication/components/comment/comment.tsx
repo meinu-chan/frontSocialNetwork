@@ -63,9 +63,11 @@ const Comment: React.FC<IComment> = ({ commentId }) => {
 
   return (
     <div className="comment d-flex">
-      <div className="comment-header d-flex">
-        <div className="comment-user-avatar col-1"></div>
-        <div className="comment-user-name col-5">{commentData.nickname}</div>
+      <div className="comment-header d-flex justify-content-between">
+        <div className="col-5 d-flex align-items-center">
+          <div className="comment-user-avatar"></div>
+          <div className="comment-user-name">{commentData.nickname}</div>
+        </div>
         <div className="d-flex w-100 comment-date-main">
           <div className="comment-date">{commentData.date}</div>
         </div>

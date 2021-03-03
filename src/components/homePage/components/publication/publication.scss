@@ -1,20 +1,16 @@
-$like-dislikes-color: #ff1919;
-
 .publication-avatar {
-  margin-left: 1%;
+  margin: 1px 2px;
   height: 40px;
   width: 40px;
   border: 1px solid rgb(126, 126, 126);
   border-radius: 50%;
   background-image: url(../../../../assets/images/default-user-image.png);
-  background: cover no-repeat;
   background-size: 100% 100%;
 }
 
 .publication-header {
   font-family: Poppins;
   background-color: #ff4e50;
-  // border: 1px solid #ff4e50;
   border-bottom: none;
   align-items: center;
   justify-content: flex-start;
@@ -27,40 +23,37 @@ $like-dislikes-color: #ff1919;
 .publication-name {
   cursor: default;
   margin: 1%;
+  align-self: center;
+}
+
+.publication-last {
+  border-radius: 0 0 10px 10px;
 }
 
 .publication {
-  // border: 1px solid rgba(0, 0, 0, 0.377);
-  width: 500px;
+  width: 100%;
 }
 .publication-main {
-  width: 500px;
+  width: inherit;
   border: 1px solid #ff4e50;
-  border-top: none;
-  display: grid;
+  border-radius: inherit;
+  background-color: #fff;
 }
 
 .publication-data {
-  // margin-left: 5%;
   cursor: default;
   justify-content: flex-end;
+  padding: 10px;
 }
 
 .publication-body {
-  // margin-top: -1%;
-  display: contents;
   font-family: Poppins;
   cursor: default;
-  // padding: 1%;
-  background-color: #fff;
+  color: #525252;
   p {
     padding: 1%;
   }
 }
-
-// .publication-bottom {
-//   background-color: $bg-color;
-// }
 
 .publication-evaluation {
   align-items: center;
@@ -72,9 +65,13 @@ $like-dislikes-color: #ff1919;
 .publication-likes {
   cursor: pointer;
   margin: 1%;
-  padding: 1%;
+  color: #525252;
   .like {
     margin-right: 10%;
+  }
+  &:hover {
+    color: #e94651c0 !important;
+    transition: 0.3s;
   }
 }
 
@@ -83,8 +80,15 @@ $like-dislikes-color: #ff1919;
 }
 
 .publication-comments {
+  cursor: pointer;
+  margin: 1%;
   flex-direction: row;
+  color: #525252;
   .comments {
     margin: 0 10% 0 0 !important;
+  }
+  &:hover {
+    color: #525252b4;
+    transition: 0.3s;
   }
 }

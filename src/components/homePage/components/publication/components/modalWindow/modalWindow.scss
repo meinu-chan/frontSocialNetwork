@@ -20,6 +20,19 @@
   .publication-data {
     justify-content: flex-end;
   }
+
+  .publication-comments {
+    margin: 0;
+  }
+
+  .publication-header {
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 10px 10px 0 0;
+  }
+}
+
+.modal-comment-last {
+  border-radius: 0 0 10px 10px;
 }
 
 .publication-modal {

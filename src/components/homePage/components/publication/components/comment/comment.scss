@@ -1,9 +1,11 @@
 .comment {
-  margin-top: 10px;
-  margin-left: 20%;
+  margin-top: 5px;
   min-width: 80%;
   flex-direction: column;
   min-width: 80%;
+  cursor: default;
+  color: #525252;
+  border-radius: inherit;
 }
 
 .comment-user-avatar {
@@ -20,9 +22,8 @@
 .comment-header {
   padding: 0 1%;
   align-items: center;
-  background-color: #99b898;
+  background-color: #ffd369;
   font-family: Poppins;
-  color: rgb(0, 0, 0);
 }
 
 .comment-date-main {
@@ -31,5 +32,6 @@
 
 .comment-body {
   padding: 0 1%;
-  border: 1px solid rgb(133, 133, 133);
+  border: 1px solid #ffd369;
+  border-radius: inherit;
 }

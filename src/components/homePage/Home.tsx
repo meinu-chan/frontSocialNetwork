@@ -53,30 +53,29 @@ export const Home: React.FC = () => {
         <div className="user-nickname">{nickname}</div>
       </div>
       <div className="d-flex">
-        <div className="col-5 ">
-          <FriendsList />
-        </div>
-        <div className="user-body d-flex col-6">
+        <div className="user-body d-flex col-8">
           <div className="user-create-publication">
             <CreatePublication getPublications={getAllPublications} />
           </div>
-          <div className="user-data">
-            <ul className="main-ul d-flex flex-column-reverse">
-              {publications &&
-                publications.map((publication, index) => {
-                  return (
-                    <div key={`${index}_${Date.now()}`}>
-                      {publication && (
-                        <li className="user-publication">
-                          <Publication {...publication} nickname={nickname} />
-                        </li>
-                      )}
-                    </div>
-                  );
-                })}
-            </ul>
+          <div className="user-data d-flex flex-column-reverse">
+            {publications &&
+              publications.map((publication, index) => {
+                return (
+                  <div
+                    key={`${index}_${Date.now()}`}
+                    className={`user-publication ${
+                      index === 0 ? "publication-last" : ""
+                    }`}
+                  >
+                    {publication && (
+                      <Publication {...publication} nickname={nickname} />
+                    )}
+                  </div>
+                );
+              })}
           </div>
         </div>
+        <div className="col-3 ">{/* <FriendsList /> */}</div>
       </div>
     </div>
   );

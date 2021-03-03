@@ -1,52 +1,45 @@
 .home-main {
-  margin: 30px auto;
-  background-color: #fff;
+  margin: 0 auto 30px;
+  background-color: #414141;
+  color: #fff;
   padding: 30px;
   flex-direction: column;
   min-height: 100vh;
   border-radius: 15px;
+  font-family: Poppins;
 }
 
 .user-nickname {
   font-size: 30px;
+  margin-left: 10px;
+}
+
+.user-about {
+  margin: 50px;
 }
 
 .user-data {
-  padding: 10px 0;
-  width: fit-content;
-  ul {
-    align-self: flex-start;
-    padding: 0;
-  }
+  width: 100%;
 }
 
 .user-image {
-  border: 1px solid rgba(0, 0, 0, 0.377);
-  height: 250px;
-  width: 250px;
+  border: 2px solid #eeeeee;
+  height: 150px;
+  width: 150px;
   background-image: url(../../assets/images/default-user-image.png);
-  background: cover no-repeat;
   background-size: 100% 100%;
 }
 
-.main-ul {
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-}
-
 .user-publication {
-  width: fit-content;
-  margin: 10px 0;
+  margin-top: 10px;
 }
 
 .user-body {
+  margin: 0 50px;
   height: 100%;
   align-items: center;
   flex-direction: column;
-  margin: 2% 5%;
-  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  padding: 1%;
+  // padding: 1%;
 }
 
 .user-create-publication {

@@ -82,7 +82,7 @@ const FriendsList: React.FC = () => {
                 if (index < 4) {
                   return (
                     <li
-                      key={`${index}_${friend._id}`}
+                      key={`${friend._id}`}
                       className={`col-${columnsCount} d-flex justify-content-center`}
                     >
                       <div

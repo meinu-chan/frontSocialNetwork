@@ -41,12 +41,14 @@ const ModalWindow: React.FC<IModalWindow> = ({
       <Fade in={open}>
         <div className="paper">
           <div className="publication-modal">
-            <div className="publication-header d-flex ">
-              <div className="publication-avatar col-1"></div>
-              <div className="publication-name col-4">
-                <h4>{nickname}</h4>
+            <div className="publication-header d-flex justify-content-between">
+              <div className="col-5 d-flex">
+                <div className="publication-avatar"></div>
+                <div className="publication-name">
+                  <h4>{nickname}</h4>
+                </div>
               </div>
-              <div className="publication-data  w-50 d-flex">
+              <div className="publication-data d-flex">
                 <p>{date}</p>
               </div>
             </div>
@@ -58,13 +60,16 @@ const ModalWindow: React.FC<IModalWindow> = ({
             <div>
               <AddComment publicId={_id.toString()} updateComments={setComs} />
             </div>
-            <ul className="d-flex flex-column-reverse">
+            <div className="d-flex flex-column-reverse">
               {coms.map((comment, index) => (
-                <div key={`${index}_${comment}`}>
+                <div
+                  key={`${comment}`}
+                  className={`${index === 0 ? "modal-comment-last" : ""}`}
+                >
                   <Comment commentId={comment} />
                 </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </Fade>

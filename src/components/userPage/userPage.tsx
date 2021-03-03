@@ -84,9 +84,9 @@ const UserPage: React.FC = () => {
           <div className="user-data">
             <ul className="main-ul d-flex flex-column-reverse">
               {publications &&
-                publications.map((publication, index) => {
+                publications.map((publication) => {
                   return (
-                    <div key={`${index}_${publication._id}`}>
+                    <div key={`${publication._id}`}>
                       {publication && (
                         <li className="user-publication">
                           <Publication {...publication} nickname={nickname} />

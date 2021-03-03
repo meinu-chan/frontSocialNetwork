@@ -52,7 +52,7 @@ const Publication: React.FC<IPublication> = ({
         console.log(flag, publication);
         const likeDiv = document.getElementById(`${_id}`)!;
         publication.likedUsers.includes(userId)
-          ? (likeDiv.style.color = "#000 ")
+          ? (likeDiv.style.color = "#525252 ")
           : (likeDiv.style.color = "#ff1919 ");
         flag ? setLike(like + 1) : setLike(like - 1);
         return flag;
@@ -71,7 +71,7 @@ const Publication: React.FC<IPublication> = ({
     if (likedUsers.includes(userId)) {
       likeDiv.style.color = "#ff1919 ";
     } else {
-      likeDiv.style.color = "#000 ";
+      likeDiv.style.color = "#525252 ";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -93,51 +93,51 @@ const Publication: React.FC<IPublication> = ({
   };
 
   return (
-    <div className="publication">
-      <div className="publication-main">
-        <div className="publication-header d-flex ">
-          <div className="publication-avatar col-1"></div>
-          <div className="publication-name col-4">
+    <div className="publication-main">
+      <div className="publication-header d-flex justify-content-between align-items-center">
+        <div className="col-5 d-flex ">
+          <div className="publication-avatar"></div>
+          <div className="publication-name">
             <h4>{nickname}</h4>
           </div>
-          <div className="publication-data w-50 d-flex">
-            <p>{dateFormatter(new Date(date))}</p>
-          </div>
         </div>
-        <div className="publication-main">
-          <div className="publication-body">
-            <p>{value}</p>
-          </div>
-          <div className="publication-bottom">
-            <div className="publication-evaluation d-flex ">
-              <div className="publication-comments d-flex" onClick={handleShow}>
-                <div className="comments">
-                  <FontAwesomeIcon icon={faComment} />
-                </div>
-                <p>{coms.length}</p>
+        <div className="publication-data d-flex">
+          <p>{dateFormatter(new Date(date))}</p>
+        </div>
+      </div>
+      <div className="publication-main">
+        <div className="publication-body">
+          <p>{value}</p>
+        </div>
+        <div className="publication-bottom">
+          <div className="publication-evaluation d-flex ">
+            <div className="publication-comments d-flex" onClick={handleShow}>
+              <div className="comments">
+                <FontAwesomeIcon icon={faComment} />
               </div>
-
-              <div
-                id={`${_id}`}
-                className="publication-likes d-flex "
-                onClick={ratePublic}
-              >
-                <div className="like">
-                  <FontAwesomeIcon icon={faHeart} />
-                </div>
-                <p>{like}</p>
-              </div>
-              <ModalWindow
-                nickname={nickname}
-                date={dateFormatter(new Date(date))}
-                value={value}
-                _id={_id}
-                setComs={setComs}
-                coms={coms}
-                handleClose={handleClose}
-                open={showComments}
-              />
+              <p>{coms.length}</p>
             </div>
+
+            <div
+              id={`${_id}`}
+              className="publication-likes d-flex "
+              onClick={ratePublic}
+            >
+              <div className="like">
+                <FontAwesomeIcon icon={faHeart} />
+              </div>
+              <p>{like}</p>
+            </div>
+            <ModalWindow
+              nickname={nickname}
+              date={dateFormatter(new Date(date))}
+              value={value}
+              _id={_id}
+              setComs={setComs}
+              coms={coms}
+              handleClose={handleClose}
+              open={showComments}
+            />
           </div>
         </div>
       </div>

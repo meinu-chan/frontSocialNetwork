@@ -46,28 +46,26 @@ const CreatePublication: React.FC<ICreatePublication> = ({
   };
 
   return (
-    <div className="create-publication d-flex">
+    <div className="create-publication d-flex align-items-center">
       <div className="create-publication-header">
         <h4>Set new publication</h4>
       </div>
-      <div className="create-publication-empty-field">
+      <div
+        className="create-publication-empty-field d-flex"
+        onClick={areaFocus}
+      >
         <div className="create-publication-textarea d-flex flex-column">
           <textarea
             ref={textareaRef}
             className="create-publication-textarea"
             placeholder="Tell world about your day..."
-            // cols={50}
-            // rows={5}
             maxLength={500}
           ></textarea>
         </div>
-        <div
-          className="create-publication-bottom d-flex flex-column align-items-end"
-          onClick={areaFocus}
-        >
+        <div className="create-publication-bottom d-flex flex-column align-items-end">
           <Button
             className="create-publication-button"
-            variant="contained"
+            variant="outlined"
             onClick={addPublication}
           >
             Public

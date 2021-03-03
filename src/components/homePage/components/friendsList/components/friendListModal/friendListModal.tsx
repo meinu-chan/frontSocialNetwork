@@ -39,11 +39,11 @@ const FriendListModal: React.FC<IModalWindow> = ({
         <div className="paper">
           <ul>
             {friends &&
-              friends.map((friend, index) => {
+              friends.map((friend) => {
                 return (
                   <li
                     className="modal-window-friend col-3 d-flex"
-                    key={`${friend._id})_${index}`}
+                    key={`${friend._id}`}
                     onClick={() => handleToFriendPage(friend._id)}
                   >
                     <div className="modal-window-main d-flex">
