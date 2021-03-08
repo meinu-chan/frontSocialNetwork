@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Button } from "@material-ui/core";
 import "./userPage.scss";
 
 import Header from "../homePage/components/header/header";
@@ -76,9 +76,14 @@ const UserPage: React.FC = () => {
   return (
     <div className="container home-main d-flex">
       <Header />
-      <div className="user-about d-flex">
-        <div className="user-image"></div>
-        <div className="user-nickname">{nickname}</div>
+      <div className="user-page-about d-flex">
+        <div className="user-page-nick-image d-flex">
+          <div className="user-image"></div>
+          <div className="user-nickname">{nickname}</div>
+        </div>
+        <div className="user-add-friend-button">
+          <Button variant="outlined">Add to friend</Button>
+        </div>
       </div>
       <div className="d-flex">
         <div className="user-body d-flex col-8">

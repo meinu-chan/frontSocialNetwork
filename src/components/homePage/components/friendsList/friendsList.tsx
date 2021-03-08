@@ -73,19 +73,23 @@ const FriendsList: React.FC = () => {
                 </div>
               );
             })) || (
-            <div className="friend-list-empty">Friend list is empty.</div>
+            <div className="friend-list-empty d-flex">
+              Friend's list is empty.
+            </div>
           )}
         </div>
-        <div
-          className="friends-bottom col-md-12"
-          onClick={() => setShowFriends(true)}
-        >
-          <div className="friends-bottom-dots">
-            <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
-            <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
-            <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
+        {friendsState.length > 0 && (
+          <div
+            className="friends-bottom col-md-12"
+            onClick={() => setShowFriends(true)}
+          >
+            <div className="friends-bottom-dots">
+              <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
+              <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
+              <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );
