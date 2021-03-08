@@ -78,7 +78,7 @@ const login: React.FC<IAuth> = ({
           <Button
             type="button"
             onClick={handleLogin}
-            variant="contained"
+            variant="outlined"
             color="primary"
           >
             Log In

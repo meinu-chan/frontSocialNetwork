@@ -39,18 +39,21 @@ const UserPage: React.FC = () => {
   const { nickname, publications, userId } = userState;
 
   React.useMemo(() => {
-    axios
-      .get(`http://localhost:5000/api/`.concat(`publication/getAll/${userId}`))
-      .then((res) => {
-        setPublics(res.data.publications);
-      })
-      .catch((err) => {
-        if (err.response) {
-          err.response.status === 401
-            ? (document.location.href = "/")
-            : console.log(err.response);
-        }
-      });
+    userId &&
+      axios
+        .get(
+          `http://localhost:5000/api/`.concat(`publication/getAll/${userId}`)
+        )
+        .then((res) => {
+          setPublics(res.data.publications);
+        })
+        .catch((err) => {
+          if (err.response) {
+            err.response.status === 401
+              ? (document.location.href = "/")
+              : console.log(err.response);
+          }
+        });
   }, [userId]);
 
   React.useEffect(() => {
@@ -67,7 +70,8 @@ const UserPage: React.FC = () => {
       )
       .then((res) => {
         dispatch(setUser(res.data.user));
-      });
+      })
+      .then(() => {});
   }, [dispatch]);
   return (
     <div className="container home-main d-flex">
@@ -77,13 +81,11 @@ const UserPage: React.FC = () => {
         <div className="user-nickname">{nickname}</div>
       </div>
       <div className="d-flex">
-        <div className="col-5 ">
-          <FriendsList />
-        </div>
-        <div className="user-body d-flex col-6">
+        <div className="user-body d-flex col-8">
           <div className="user-data">
             <ul className="main-ul d-flex flex-column-reverse">
-              {publications &&
+              {(publications &&
+                publications.length > 0 &&
                 publications.map((publication) => {
                   return (
                     <div key={`${publication._id}`}>
@@ -94,9 +96,16 @@ const UserPage: React.FC = () => {
                       )}
                     </div>
                   );
-                })}
+                })) || (
+                <div className="user-publications-empty">
+                  There is no publications.
+                </div>
+              )}
             </ul>
           </div>
+        </div>
+        <div className="col-3">
+          <FriendsList />
         </div>
       </div>
     </div>

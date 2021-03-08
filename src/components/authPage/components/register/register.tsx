@@ -100,7 +100,7 @@ const register: React.FC<IAuth> = ({
           </p>
           <Button
             type="button"
-            variant="contained"
+            variant="outlined"
             color="primary"
             onClick={handleSignin}
           >

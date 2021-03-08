@@ -2,7 +2,6 @@ import React from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import axios from "axios";
-import { connect } from "react-redux";
 
 import "./header.scss";
 
@@ -53,4 +52,4 @@ const Header: React.FC = () => {
     </div>
   );
 };
-export default connect()(Header);
+export default Header;

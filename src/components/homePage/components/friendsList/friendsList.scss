@@ -1,28 +1,29 @@
 .user-friends {
-  margin-top: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background: #fff;
   .list-friends {
-    padding: 10px !important;
+    padding: 0 !important;
+    background-color: #313131;
+    border-radius: 0 0 10px 10px;
     flex-direction: row !important;
-    ul {
-      list-style: none;
-      padding: 0 !important;
-    }
+    border: 1px solid #ff4e50;
+    height: 70vh;
+    overflow: hidden;
   }
 }
 
 .friends-header {
   cursor: default;
   padding-left: 5px;
-  background-color: rgba(145, 145, 145, 0.842);
+  background-color: #ff4e50;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0);
 }
 
 .friend {
-  width: fit-content;
+  margin: 1px;
+  height: fit-content;
+  width: inherit;
   cursor: pointer;
   padding: 10px 10px 10px 10px;
-  flex-direction: column;
   .friend-image {
     border: 1px solid rgb(126, 126, 126);
     border-radius: 50%;
@@ -33,14 +34,18 @@
     background-size: 100% 100%;
   }
   &:hover {
+    background-color: #505050;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
   }
 }
 .friends-bottom {
   display: flex;
   text-align: center;
   justify-content: center;
-  background-color: rgba(145, 145, 145, 0.842);
+  background-color: #ff4e50;
+  border: 1px solid #ff4e50;
+  border-radius: 0 0 10px 10px;
   &-dot {
     margin: 5px;
   }
@@ -48,6 +53,7 @@
     cursor: pointer;
     margin: 5px;
   }
+  transform: translate(0, -100%);
 }
 
 .friend-nickname {
@@ -55,6 +61,8 @@
 }
 
 .friend-list-empty {
+  align-self: center;
+  justify-content: center;
   cursor: default;
   width: 100%;
   font-family: Poppins;

@@ -32,12 +32,13 @@
 
 .publication {
   width: 100%;
+  border-radius: inherit;
 }
 .publication-main {
   width: inherit;
-  border: 1px solid #ff4e50;
+  border: 2px solid #ff4e50;
   border-radius: inherit;
-  background-color: #fff;
+  background-color: #dcdcdc;
 }
 
 .publication-data {
@@ -50,7 +51,9 @@
   font-family: Poppins;
   cursor: default;
   color: #525252;
+  background-color: #dcdcdc;
   p {
+    word-wrap: break-word;
     padding: 1%;
   }
 }

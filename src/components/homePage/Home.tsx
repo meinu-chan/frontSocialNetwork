@@ -10,7 +10,7 @@ import Header from "./components/header/header";
 
 export const Home: React.FC = () => {
   const [nickname, setNickname] = React.useState<string>("");
-  const [publications, setPublications] = React.useState<Array<any>>();
+  const [publications, setPublications] = React.useState<Array<any>>([]);
   const [userId, setUserId] = React.useState<string>();
 
   const getAllPublications = React.useCallback(() => {
@@ -41,9 +41,10 @@ export const Home: React.FC = () => {
       .then((res) => {
         setNickname(res.data.nickname);
         setUserId(res.data._id);
+        console.log(">>>>", userId);
         getAllPublications();
       });
-  }, [getAllPublications]);
+  }, [getAllPublications, userId]);
 
   return (
     <div className="container home-main d-flex">
@@ -58,7 +59,8 @@ export const Home: React.FC = () => {
             <CreatePublication getPublications={getAllPublications} />
           </div>
           <div className="user-data d-flex flex-column-reverse">
-            {publications &&
+            {(publications &&
+              publications.length > 0 &&
               publications.map((publication, index) => {
                 return (
                   <div
@@ -72,10 +74,16 @@ export const Home: React.FC = () => {
                     )}
                   </div>
                 );
-              })}
+              })) || (
+              <div className="user-publications-empty">
+                There is no publications.
+              </div>
+            )}
           </div>
         </div>
-        <div className="col-3 ">{/* <FriendsList /> */}</div>
+        <div className="col-3 ">
+          <FriendsList />
+        </div>
       </div>
     </div>
   );

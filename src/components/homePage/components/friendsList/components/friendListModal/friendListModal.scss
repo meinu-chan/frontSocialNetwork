@@ -21,7 +21,10 @@
   width: fit-content !important;
   flex-direction: column;
   justify-content: center;
+  color: #fff;
   &:hover {
+    background-color: #505050;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
   }
 }

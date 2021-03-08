@@ -12,6 +12,17 @@ interface IAddComment {
 const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
   const textareaRef = React.useRef<any>();
 
+  let textareaHeight: string | null = null;
+
+  if (textareaRef.current) {
+    textareaHeight = textareaRef.current.style.height;
+    textareaRef.current.addEventListener("keyup", () => {
+      if (textareaRef.current.scrollTop > 0) {
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    });
+  }
+
   const addComment = () => {
     const value = textareaRef.current.value.trim();
     if (value.length !== 0) {
@@ -30,6 +41,7 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
         )
         .then((res) => {
           textareaRef.current.value = "";
+          textareaRef.current.style.height = textareaHeight;
           updateComments((prev) => [...prev, res.data.comment._id]);
         })
         .catch((err) => {

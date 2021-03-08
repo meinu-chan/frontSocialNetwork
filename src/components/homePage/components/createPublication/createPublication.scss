@@ -10,7 +10,7 @@
 }
 
 .create-publication-header {
-  background-color: #fff;
+  background-color: #dcdcdc;
   color: #525252;
   width: 100%;
   cursor: default;
@@ -29,17 +29,18 @@
   width: 100%;
   border: none;
   color: #525252;
+  background-color: #dcdcdc;
   // border: 1px solid #e84a5f;
 }
 
 .create-publication-button {
   background-color: #414141 !important;
-  color: #fff !important;
+  color: #eff1f4 !important;
 }
 
 .create-publication-empty-field {
   border: 2px solid #e84a5f;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: #dcdcdc;
 }

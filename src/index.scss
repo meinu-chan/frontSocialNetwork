@@ -28,6 +28,7 @@ ul {
 
 textarea {
   resize: none !important;
+  overflow: hidden;
   &:focus {
     outline: 0;
   }

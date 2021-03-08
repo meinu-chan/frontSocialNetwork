@@ -19,7 +19,6 @@ interface User {
   _id: string;
   friends: [User];
 }
-
 const FriendsList: React.FC = () => {
   const [showFriends, setShowFriends] = React.useState<boolean>(false);
 
@@ -37,25 +36,6 @@ const FriendsList: React.FC = () => {
   }, [dispatch]);
 
   const friendsState = useSelector(({ friends }: RootState) => friends);
-
-  const friendsCountChecker = (): number | null => {
-    const len = friendsState.length;
-
-    switch (len as number) {
-      case 0:
-        return null;
-      case 1:
-        return 12;
-      case 2:
-        return 6;
-      case 3:
-        return 4;
-      default:
-        return 3;
-    }
-  };
-
-  const columnsCount = friendsCountChecker();
 
   const handleToFriendPage = (id: string) => {
     document.location.href = `http://localhost:3000/user/id=${id}`;
@@ -75,47 +55,37 @@ const FriendsList: React.FC = () => {
         <div className="friends-header">
           <h4>Friends: {friendsState.length}</h4>
         </div>
-        <div className="list-friends">
-          <ul>
-            {(columnsCount &&
-              friendsState.map((friend, index) => {
-                if (index < 4) {
-                  return (
-                    <li
-                      key={`${friend._id}`}
-                      className={`col-${columnsCount} d-flex justify-content-center`}
-                    >
-                      <div
-                        className="friend d-flex"
-                        onClick={() => handleToFriendPage(friend._id)}
-                      >
-                        <div className="friend-image"> </div>
+        <div className="list-friends d-flex">
+          {(friendsState.length > 0 &&
+            friendsState.map((friend) => {
+              return (
+                <div key={`${friend._id}`} className="d-flex w-100">
+                  <div
+                    className="friend d-flex"
+                    onClick={() => handleToFriendPage(friend._id)}
+                  >
+                    <div className="friend-image"> </div>
 
-                        <div className="friend-nickname">
-                          <h5>{friend.nickname}</h5>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                }
-                return <div key={`${index}_${friend._id}`}></div>;
-              })) || (
-              <li className="friend-list-empty">Friend list is empty.</li>
-            )}
-          </ul>
+                    <div className="friend-nickname">
+                      <h5>{friend.nickname}</h5>
+                    </div>
+                  </div>
+                </div>
+              );
+            })) || (
+            <div className="friend-list-empty">Friend list is empty.</div>
+          )}
         </div>
-        {columnsCount && friendsState.length > 4 && (
-          <div
-            className="friends-bottom col-md-12"
-            onClick={() => setShowFriends(true)}
-          >
-            <div className="friends-bottom-dots">
-              <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
-              <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
-              <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
-            </div>
+        <div
+          className="friends-bottom col-md-12"
+          onClick={() => setShowFriends(true)}
+        >
+          <div className="friends-bottom-dots">
+            <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
+            <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
+            <FontAwesomeIcon icon={faCircle} className="friends-bottom-dot" />
           </div>
-        )}
+        </div>
       </div>
     </>
   );

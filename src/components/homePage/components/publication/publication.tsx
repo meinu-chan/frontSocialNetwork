@@ -12,7 +12,6 @@ interface IPublication {
   nickname: string;
   date: Date;
   value: string;
-  likes: number;
   likedUsers: Array<String>;
   userId: string;
   comments: Array<string>;
@@ -22,12 +21,11 @@ const Publication: React.FC<IPublication> = ({
   nickname,
   date,
   value,
-  likes,
   likedUsers,
   userId,
   comments,
 }) => {
-  const [like, setLike] = React.useState<number>(likes);
+  const [like, setLike] = React.useState<number>(likedUsers.length);
 
   const [coms, setComs] = React.useState<Array<string>>(comments);
 
@@ -39,7 +37,6 @@ const Publication: React.FC<IPublication> = ({
         `http://localhost:5000/api/`.concat("publication/rate"),
         {
           publicId: _id,
-          userId,
         },
         {
           headers: {
@@ -51,11 +48,10 @@ const Publication: React.FC<IPublication> = ({
         const { flag, publication } = res.data;
         console.log(flag, publication);
         const likeDiv = document.getElementById(`${_id}`)!;
-        publication.likedUsers.includes(userId)
-          ? (likeDiv.style.color = "#525252 ")
-          : (likeDiv.style.color = "#ff1919 ");
-        flag ? setLike(like + 1) : setLike(like - 1);
-        return flag;
+        publication.likedUsers.includes(sessionStorage.getItem("userId"))
+          ? (likeDiv.style.color = "#ff1919 ")
+          : (likeDiv.style.color = "#525252 ");
+        setLike(publication.likedUsers.length);
       })
       .catch((err) => {
         if (err.response) {
@@ -68,9 +64,11 @@ const Publication: React.FC<IPublication> = ({
 
   React.useEffect(() => {
     const likeDiv = document.getElementById(`${_id}`)!;
-    if (likedUsers.includes(userId)) {
+    if (likedUsers.includes(sessionStorage.getItem("userId")!)) {
+      console.log(true);
       likeDiv.style.color = "#ff1919 ";
     } else {
+      console.log(false);
       likeDiv.style.color = "#525252 ";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,7 +91,7 @@ const Publication: React.FC<IPublication> = ({
   };
 
   return (
-    <div className="publication-main">
+    <div className="publication">
       <div className="publication-header d-flex justify-content-between align-items-center">
         <div className="col-5 d-flex ">
           <div className="publication-avatar"></div>

@@ -23,7 +23,6 @@ const FriendListModal: React.FC<IModalWindow> = ({
   friends,
   handleToFriendPage,
 }) => {
-  console.log(friends);
   return (
     <Modal
       className="Modal d-flex"
@@ -37,7 +36,7 @@ const FriendListModal: React.FC<IModalWindow> = ({
     >
       <Fade in={open}>
         <div className="paper">
-          <ul>
+          <ul className="d-flex row">
             {friends &&
               friends.map((friend) => {
                 return (

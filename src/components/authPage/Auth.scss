@@ -14,15 +14,13 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    // align-items: flex-end;
     .log-sign {
       align-self: flex-end;
       cursor: pointer;
       font-size: 10px;
       font-style: italic;
-      font-weight: 600;
       margin: 0;
-      // margin-left: 50%;
+      padding: 2% 0 5%;
     }
   }
 }
@@ -47,12 +45,12 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 20%;
-  height: 50%;
+  width: 15%;
+  height: 40%;
   transform: translate(-50%, -50%);
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background-color: #0f4c75;
+  background-color: #414141;
   color: #fff;
   h2 {
     text-align: center;
@@ -69,12 +67,16 @@
   .MuiInput-underline:after {
     border-bottom: 2px solid rgba(0, 0, 0, 0.42);
   }
+
+  input.MuiInputBase-input.MuiInput-input {
+    color: #fff;
+  }
 }
 
 .authPage {
   width: 100%;
   height: 100vh;
-  background-color: #162447;
+  background-color: #313131;
   background-position: center;
   background-size: cover;
 }

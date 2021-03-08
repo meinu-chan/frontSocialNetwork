@@ -17,6 +17,17 @@ const CreatePublication: React.FC<ICreatePublication> = ({
     textareaRef.current && textareaRef.current.focus();
   };
 
+  let textareaHeight: string | null = null;
+
+  if (textareaRef.current) {
+    textareaHeight = textareaRef.current.style.height;
+    textareaRef.current.addEventListener("keyup", () => {
+      if (textareaRef.current.scrollTop > 0) {
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    });
+  }
+
   const addPublication = async () => {
     textareaRef.current &&
       (await axios
@@ -33,6 +44,7 @@ const CreatePublication: React.FC<ICreatePublication> = ({
         )
         .then(() => {
           textareaRef.current.value = "";
+          textareaRef.current.style.height = textareaHeight;
         })
         .catch((err) => {
           if (err.response) {
