@@ -13,6 +13,8 @@ import axios from "axios";
 
 import "./header.scss";
 
+import FriendRequests from "./components/friendRequests";
+
 interface RootState {
   user: User;
 }
@@ -26,15 +28,23 @@ interface User {
 }
 
 interface DefaultRootState {
-  // nickname: string;
-  // publications: any[];
   userId: string;
   waitingForResponse: [string];
-  // status: boolean;
 }
 
 const Header: React.FC = () => {
   const nicknameRef = React.useRef<any>();
+  const anchorElRef = React.useRef<null | HTMLDivElement>(null);
+  const [render, setRender] = React.useState<boolean>(true);
+  const [open, setOpen] = React.useState<boolean>(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const headerState: DefaultRootState = useSelector(({ user }: RootState) => {
     const { waitingForResponse, _id: userId } = user;
@@ -43,6 +53,12 @@ const Header: React.FC = () => {
   });
 
   const { waitingForResponse, userId } = headerState;
+
+  React.useEffect(() => {
+    userId === sessionStorage.getItem("userId")
+      ? setRender(true)
+      : setRender(false);
+  }, [userId]);
 
   const findByNickname = () => {
     nicknameRef.current &&
@@ -66,51 +82,61 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="main-header d-flex">
-      <AppBar position="static" className="m-header">
-        <div className="container">
-          <Toolbar className="d-flex justify-content-between">
-            <Typography className="col-9" variant="h6" noWrap>
-              Social Network
-            </Typography>
-            <div className="badge-icon-header">
-              <IconButton
-                aria-label="show 17 new notifications"
-                color="inherit"
+    <>
+      {render && (
+        <FriendRequests
+          waitForRes={waitingForResponse}
+          anchorEl={anchorElRef.current}
+          open={open}
+          handleClose={handleClose}
+        />
+      )}
+      <div className="main-header d-flex">
+        <AppBar position="static" className="m-header">
+          <div className="container">
+            <Toolbar className="d-flex justify-content-between">
+              <Typography className="col-9" variant="h6" noWrap>
+                Social Network
+              </Typography>
+              <div
+                className="badge-icon-header"
+                ref={anchorElRef}
+                onClick={handleClick}
               >
-                <Badge
-                  badgeContent={
-                    waitingForResponse.length > 0
-                      ? waitingForResponse.length
-                      : 0
-                  }
-                  style={{
-                    display:
-                      userId === sessionStorage.getItem("userId")
-                        ? "inline-flex"
-                        : "none",
-                  }}
-                  color="secondary"
-                >
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </div>
-
-            <div className="main-header-search d-flex">
-              <div className="header-searchIcon">
-                <SearchIcon onClick={findByNickname} />
+                {render && (
+                  <IconButton
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                  >
+                    <Badge
+                      badgeContent={
+                        waitingForResponse.length > 0
+                          ? waitingForResponse.length
+                          : 0
+                      }
+                      color="secondary"
+                    >
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                )}
               </div>
-              <input
-                className="header-input"
-                ref={nicknameRef}
-                placeholder="Find user..."
-              />
-            </div>
-          </Toolbar>
-        </div>
-      </AppBar>
-    </div>
+
+              <div className="main-header-search d-flex">
+                <div className="header-searchIcon">
+                  <SearchIcon onClick={findByNickname} />
+                </div>
+                <input
+                  className="header-input"
+                  ref={nicknameRef}
+                  placeholder="Find user..."
+                />
+              </div>
+            </Toolbar>
+          </div>
+        </AppBar>
+      </div>
+    </>
   );
 };
 export default Header;
