@@ -65,10 +65,8 @@ const Publication: React.FC<IPublication> = ({
   React.useEffect(() => {
     const likeDiv = document.getElementById(`${_id}`)!;
     if (likedUsers.includes(sessionStorage.getItem("userId")!)) {
-      console.log(true);
       likeDiv.style.color = "#ff1919 ";
     } else {
-      console.log(false);
       likeDiv.style.color = "#525252 ";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

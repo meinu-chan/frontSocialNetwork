@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Home.scss";
 
@@ -8,28 +9,58 @@ import CreatePublication from "./components/createPublication/createPublication"
 import Publication from "./components/publication/publication";
 import Header from "./components/header/header";
 
+import { setUser } from "../../redux/actions/user";
+
+interface RootState {
+  user: User;
+}
+
+interface User {
+  nickname: string;
+  publications: [];
+  _id: string;
+}
+
+interface DefaultRootState {
+  nickname: string;
+  publications: any[];
+  userId: string;
+}
+
 export const Home: React.FC = () => {
-  const [nickname, setNickname] = React.useState<string>("");
-  const [publications, setPublications] = React.useState<Array<any>>([]);
-  const [userId, setUserId] = React.useState<string>();
+  const [publics, setPublics] = React.useState<Array<any>>([]);
+
+  const userState: DefaultRootState = useSelector(({ user }: RootState) => {
+    const { nickname, _id: userId } = user;
+
+    return {
+      nickname,
+      publications: publics,
+      userId,
+    };
+  });
 
   const getAllPublications = React.useCallback(() => {
-    userId &&
+    userState.userId &&
       axios
         .get(
-          `http://localhost:5000/api/`.concat(`publication/getAll/${userId}`)
+          `http://localhost:5000/api/`.concat(
+            `publication/getAll/${userState.userId}`
+          )
         )
         .then((res) => {
-          setPublications(res.data.publications);
+          setPublics(res.data.publications);
         })
         .catch((err) => {
           if (err.response) {
-            err.response.status === 401
+            err.response.status >= 400
               ? (document.location.href = "/")
               : console.log(err.response);
           }
         });
-  }, [userId]);
+  }, [userState.userId]);
+
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     axios
@@ -39,19 +70,17 @@ export const Home: React.FC = () => {
         },
       })
       .then((res) => {
-        setNickname(res.data.nickname);
-        setUserId(res.data._id);
-        console.log(">>>>", userId);
+        dispatch(setUser(res.data.user));
         getAllPublications();
       });
-  }, [getAllPublications, userId]);
+  }, [dispatch, getAllPublications]);
 
   return (
     <div className="container home-main d-flex">
       <Header />
       <div className="user-about d-flex">
         <div className="user-image"></div>
-        <div className="user-nickname">{nickname}</div>
+        <div className="user-nickname">{userState.nickname}</div>
       </div>
       <div className="d-flex">
         <div className="user-body d-flex col-8">
@@ -59,9 +88,9 @@ export const Home: React.FC = () => {
             <CreatePublication getPublications={getAllPublications} />
           </div>
           <div className="user-data d-flex flex-column-reverse">
-            {(publications &&
-              publications.length > 0 &&
-              publications.map((publication, index) => {
+            {(publics &&
+              publics.length > 0 &&
+              publics.map((publication, index) => {
                 return (
                   <div
                     key={`${index}_${Date.now()}`}
@@ -70,7 +99,10 @@ export const Home: React.FC = () => {
                     }`}
                   >
                     {publication && (
-                      <Publication {...publication} nickname={nickname} />
+                      <Publication
+                        {...publication}
+                        nickname={userState.nickname}
+                      />
                     )}
                   </div>
                 );

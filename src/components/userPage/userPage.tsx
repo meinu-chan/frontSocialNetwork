@@ -18,25 +18,38 @@ interface User {
   nickname: string;
   publications: [];
   _id: string;
+  requests: [string];
+  waitingForResponse: [string];
 }
 
 interface DefaultRootState {
   nickname: string;
   publications: [any];
   userId: string;
+  requests: [string];
+  follow: boolean;
 }
 
 const UserPage: React.FC = () => {
   const [publics, setPublics] = React.useState<any>();
+
   const dispatch = useDispatch();
 
   const userState: DefaultRootState = useSelector(({ user }: RootState) => {
-    const { nickname, _id } = user;
-
-    return { nickname, publications: publics, userId: _id };
+    const { nickname, _id, requests: _req, waitingForResponse } = user;
+    const follow = waitingForResponse.includes(
+      sessionStorage.getItem("userId")!
+    );
+    return {
+      nickname,
+      publications: publics,
+      userId: _id,
+      requests: _req,
+      follow,
+    };
   });
 
-  const { nickname, publications, userId } = userState;
+  const { nickname, publications, userId, follow } = userState;
 
   React.useMemo(() => {
     userId &&
@@ -70,9 +83,25 @@ const UserPage: React.FC = () => {
       )
       .then((res) => {
         dispatch(setUser(res.data.user));
-      })
-      .then(() => {});
+      });
   }, [dispatch]);
+  const sendFriendRequest = () => {
+    axios
+      .put(
+        "http://localhost:5000/api/".concat("page/friends/send"),
+        {
+          userId,
+        },
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(setUser(res.data.potentialFriend));
+      });
+  };
   return (
     <div className="container home-main d-flex">
       <Header />
@@ -82,7 +111,9 @@ const UserPage: React.FC = () => {
           <div className="user-nickname">{nickname}</div>
         </div>
         <div className="user-add-friend-button">
-          <Button variant="outlined">Add to friend</Button>
+          <Button variant="outlined" onClick={sendFriendRequest}>
+            {follow ? "Following" : "Follow"}
+          </Button>
         </div>
       </div>
       <div className="d-flex">

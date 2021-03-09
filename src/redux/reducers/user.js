@@ -1,7 +1,9 @@
 const initialState = {
     nickname: null,
     publications: [],
-    _id: null
+    _id: null,
+    requests: [],
+    waitingForResponse: []
 };
 
 const userReducer = (state = initialState, action) => {
