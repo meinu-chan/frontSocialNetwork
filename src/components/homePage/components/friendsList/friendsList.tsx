@@ -31,7 +31,7 @@ const FriendsList: React.FC = () => {
         )
       )
       .then((res) => {
-        dispatch(setFriends(res.data.friends));
+        dispatch(setFriends(...res.data.friends));
       });
   }, [dispatch]);
 
@@ -57,9 +57,9 @@ const FriendsList: React.FC = () => {
         </div>
         <div className="list-friends d-flex">
           {(friendsState.length > 0 &&
-            friendsState.map((friend) => {
+            friendsState.map((friend, index) => {
               return (
-                <div key={`${friend._id}`} className="d-flex w-100">
+                <div key={`${friend._id}_${index}`} className="d-flex w-100">
                   <div
                     className="friend d-flex"
                     onClick={() => handleToFriendPage(friend._id)}

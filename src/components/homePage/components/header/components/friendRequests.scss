@@ -3,8 +3,59 @@
   width: 100%;
   align-items: flex-end;
   margin-top: 4% !important;
-  li {
-    width: 20%;
-    background-color: #dcdcdc;
+}
+
+.friend-req-img {
+  border: 1px solid rgb(126, 126, 126);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  background-image: url(../../../../../assets/images/default-user-image.png);
+  background: cover no-repeat;
+  background-size: 100% 100%;
+}
+
+.f-req-menu {
+  .MuiMenu-list {
+    display: flex !important;
+    flex-direction: column;
+    li {
+      display: flex !important;
+      justify-content: space-between;
+    }
   }
+}
+
+.f-req-todo-accept {
+  margin: 10%;
+  font-size: 15px;
+  &:hover {
+    color: rgb(133, 216, 95);
+    transition: 0.3s;
+  }
+}
+
+.f-req-todo-decline {
+  margin: 10%;
+  font-size: 15px;
+  &:hover {
+    color: rgb(214, 91, 91);
+    transition: 0.3s;
+  }
+}
+
+.friend-req-list {
+  text-align: center;
+  border-bottom: 1px solid;
+  &:focus {
+    outline: none;
+  }
+}
+
+.f-req-empty {
+  height: 100px;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+  padding: 10%;
 }

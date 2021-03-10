@@ -65,6 +65,7 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
           ref={textareaRef}
           placeholder="Set comment..."
           className="addComment-textarea"
+          maxLength={500}
         ></textarea>
       </div>
       <div className="addComment-bottom">

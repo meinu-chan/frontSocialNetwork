@@ -15,6 +15,7 @@ interface RootState {
 }
 
 interface User {
+  friends: [any];
   nickname: string;
   publications: [];
   _id: string;
@@ -23,6 +24,7 @@ interface User {
 }
 
 interface DefaultRootState {
+  friends: [any];
   nickname: string;
   publications: [any];
   userId: string;
@@ -36,11 +38,12 @@ const UserPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const userState: DefaultRootState = useSelector(({ user }: RootState) => {
-    const { nickname, _id, requests: _req, waitingForResponse } = user;
+    const { nickname, _id, requests: _req, waitingForResponse, friends } = user;
     const follow = waitingForResponse.includes(
       sessionStorage.getItem("userId")!
     );
     return {
+      friends,
       nickname,
       publications: publics,
       userId: _id,
@@ -49,7 +52,7 @@ const UserPage: React.FC = () => {
     };
   });
 
-  const { nickname, publications, userId, follow } = userState;
+  const { nickname, publications, userId, follow, friends } = userState;
 
   React.useMemo(() => {
     userId &&
@@ -85,6 +88,7 @@ const UserPage: React.FC = () => {
         dispatch(setUser(res.data.user));
       });
   }, [dispatch]);
+
   const sendFriendRequest = () => {
     axios
       .put(
@@ -111,9 +115,15 @@ const UserPage: React.FC = () => {
           <div className="user-nickname">{nickname}</div>
         </div>
         <div className="user-add-friend-button">
-          <Button variant="outlined" onClick={sendFriendRequest}>
-            {follow ? "Following" : "Follow"}
-          </Button>
+          {friends && (
+            <Button
+              variant="outlined"
+              onClick={sendFriendRequest}
+              disabled={friends.includes(sessionStorage.getItem("userId"))}
+            >
+              {follow ? "Sended..." : "Send Friend Request"}
+            </Button>
+          )}
         </div>
       </div>
       <div className="d-flex">
