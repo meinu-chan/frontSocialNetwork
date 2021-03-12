@@ -16,6 +16,14 @@
 
 .user-about {
   margin: 50px;
+  justify-content: space-between;
+  align-items: flex-end;
+  .MuiButton-outlined {
+    border: 1px solid rgb(206, 206, 206);
+  }
+  .MuiButton-root {
+    color: rgb(206, 206, 206);
+  }
 }
 
 .user-data {

@@ -76,7 +76,7 @@ const Header: React.FC = () => {
         .then((res) => {
           nicknameRef.current.value = "";
           document.location.href = "http://localhost:3000".concat(
-            `/user/id=${res.data.user._id}`
+            `/id=${res.data.user._id}`
           );
         });
   };
@@ -106,11 +106,7 @@ const Header: React.FC = () => {
                 {render && (
                   <IconButton color="inherit">
                     <Badge
-                      badgeContent={
-                        waitingForResponse.length > 0
-                          ? waitingForResponse.length
-                          : 0
-                      }
+                      badgeContent={waitingForResponse.length}
                       color="secondary"
                     >
                       <NotificationsIcon />

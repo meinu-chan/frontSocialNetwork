@@ -8,6 +8,7 @@ import FriendsList from "./components/friendsList/friendsList";
 import CreatePublication from "./components/createPublication/createPublication";
 import Publication from "./components/publication/publication";
 import Header from "./components/header/header";
+import AddFriendButton from "./components/addFriendButton/addFriendButton";
 
 import { setUser } from "../../redux/actions/user";
 
@@ -16,27 +17,40 @@ interface RootState {
 }
 
 interface User {
+  friends: [any];
   nickname: string;
   publications: [];
   _id: string;
+  requests: [string];
+  waitingForResponse: [string];
 }
 
 interface DefaultRootState {
+  friends: [any];
   nickname: string;
   publications: any[];
   userId: string;
+  requests: [string];
+  follow: boolean;
 }
 
 export const Home: React.FC = () => {
   const [publics, setPublics] = React.useState<Array<any>>([]);
+  const [myPage, setMyPage] = React.useState<boolean>(true);
+  const id: string | null = sessionStorage.getItem("userId");
 
   const userState: DefaultRootState = useSelector(({ user }: RootState) => {
-    const { nickname, _id: userId } = user;
-
+    const { nickname, _id, requests: _req, waitingForResponse, friends } = user;
+    const follow = waitingForResponse.includes(
+      sessionStorage.getItem("userId")!
+    );
     return {
+      friends,
       nickname,
       publications: publics,
-      userId,
+      userId: _id,
+      requests: _req,
+      follow,
     };
   });
 
@@ -60,33 +74,70 @@ export const Home: React.FC = () => {
         });
   }, [userState.userId]);
 
+  const sendFriendRequest = () => {
+    axios
+      .put(
+        "http://localhost:5000/api/".concat("page/friends/send"),
+        {
+          userId: userState.userId,
+        },
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(setUser(res.data.potentialFriend));
+      });
+  };
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/`.concat("page"), {
-        headers: {
-          Authorization: sessionStorage.getItem("token"),
-        },
-      })
+      .get(
+        `http://localhost:5000/api/`.concat(
+          `page/find/${window.location.href.split("/").pop()}`
+        ),
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("token"),
+          },
+        }
+      )
       .then((res) => {
         dispatch(setUser(res.data.user));
+        setMyPage(userState.userId === id);
         getAllPublications();
       });
-  }, [dispatch, getAllPublications]);
+  }, [dispatch, getAllPublications, id, userState.userId]);
 
   return (
     <div className="container home-main d-flex">
       <Header />
       <div className="user-about d-flex">
-        <div className="user-image"></div>
-        <div className="user-nickname">{userState.nickname}</div>
+        <div className="user-page-nick-image d-flex">
+          <div className="user-image"></div>
+          <div className="user-nickname">{userState.nickname}</div>
+        </div>
+        {!myPage && (
+          <div className="user-add-friend-button">
+            <AddFriendButton
+              sendFriendRequest={sendFriendRequest}
+              follow={userState.follow}
+              friends={userState.friends}
+            />
+          </div>
+        )}
       </div>
       <div className="d-flex">
         <div className="user-body d-flex col-8">
-          <div className="user-create-publication">
-            <CreatePublication getPublications={getAllPublications} />
-          </div>
+          {myPage && (
+            <div className="user-create-publication">
+              <CreatePublication getPublications={getAllPublications} />
+            </div>
+          )}
           <div className="user-data d-flex flex-column-reverse">
             {(publics &&
               publics.length > 0 &&

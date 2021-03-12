@@ -38,7 +38,7 @@ const FriendsList: React.FC = () => {
   const friendsState = useSelector(({ friends }: RootState) => friends);
 
   const handleToFriendPage = (id: string) => {
-    document.location.href = `http://localhost:3000/user/id=${id}`;
+    document.location.href = `http://localhost:3000/id=${id}`;
   };
 
   return (
