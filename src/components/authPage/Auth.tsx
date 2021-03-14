@@ -18,7 +18,6 @@ export const Auth: React.FC = () => {
 
   const showLoginSetter = () => setShowLogin((prev) => !prev);
 
-  console.log(process.env);
   return (
     <div className="authPage">
       <div className="auth">

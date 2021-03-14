@@ -76,7 +76,7 @@ const Header: React.FC = () => {
         .then((res) => {
           nicknameRef.current.value = "";
           document.location.href = `${process.env.REACT_APP_CLIENT_URL}`.concat(
-            `/id=${res.data.user._id}`
+            `id=${res.data.user._id}`
           );
         });
   };
