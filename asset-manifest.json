@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/frontSocialNetwork/static/css/main.75f471b2.chunk.css",
+    "main.js": "/frontSocialNetwork/static/js/main.28f6621e.chunk.js",
+    "main.js.map": "/frontSocialNetwork/static/js/main.28f6621e.chunk.js.map",
+    "runtime-main.js": "/frontSocialNetwork/static/js/runtime-main.40f93681.js",
+    "runtime-main.js.map": "/frontSocialNetwork/static/js/runtime-main.40f93681.js.map",
+    "static/js/2.44b98551.chunk.js": "/frontSocialNetwork/static/js/2.44b98551.chunk.js",
+    "static/js/2.44b98551.chunk.js.map": "/frontSocialNetwork/static/js/2.44b98551.chunk.js.map",
+    "index.html": "/frontSocialNetwork/index.html",
+    "static/css/main.75f471b2.chunk.css.map": "/frontSocialNetwork/static/css/main.75f471b2.chunk.css.map",
+    "static/js/2.44b98551.chunk.js.LICENSE.txt": "/frontSocialNetwork/static/js/2.44b98551.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/frontSocialNetwork/static/media/Poppins-Italic.ce3fff31.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.40f93681.js",
+    "static/js/2.44b98551.chunk.js",
+    "static/css/main.75f471b2.chunk.css",
+    "static/js/main.28f6621e.chunk.js"
+  ]
+}
