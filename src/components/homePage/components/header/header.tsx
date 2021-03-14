@@ -64,7 +64,7 @@ const Header: React.FC = () => {
     nicknameRef.current &&
       axios
         .get(
-          `http://localhost:5000/api/`.concat(
+          `${process.env.REACT_APP_SERVER_URL}`.concat(
             `page/find/name/nickname=${nicknameRef.current.value}`
           ),
           {
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
         )
         .then((res) => {
           nicknameRef.current.value = "";
-          document.location.href = "http://localhost:3000".concat(
+          document.location.href = `${process.env.REACT_APP_CLIENT_URL}`.concat(
             `/id=${res.data.user._id}`
           );
         });

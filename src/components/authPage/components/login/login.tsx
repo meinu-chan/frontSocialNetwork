@@ -24,7 +24,7 @@ const login: React.FC<IAuth> = ({
   const handleLogin = (e: any): void => {
     e.preventDefault();
     axios
-      .post(`http://localhost:5000/api/`.concat("auth/login"), {
+      .post(`${process.env.REACT_APP_SERVER_URL}`.concat("auth/login"), {
         nickname,
         password,
       })

@@ -33,7 +33,7 @@ const Comment: React.FC<IComment> = ({ commentId }) => {
   React.useEffect(() => {
     axios
       .post(
-        `http://localhost:5000/api/`.concat("comment/getComment"),
+        `${process.env.REACT_APP_SERVER_URL}`.concat("comment/getComment"),
         {
           commentId,
         },

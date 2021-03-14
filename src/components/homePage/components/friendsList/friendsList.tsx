@@ -26,7 +26,7 @@ const FriendsList: React.FC = () => {
   React.useEffect(() => {
     axios
       .get(
-        "http://localhost:5000/api/".concat(
+        `${process.env.REACT_APP_SERVER_URL}`.concat(
           `page/friends/${window.location.href.split("/").pop()}`
         )
       )
@@ -38,7 +38,7 @@ const FriendsList: React.FC = () => {
   const friendsState = useSelector(({ friends }: RootState) => friends);
 
   const handleToFriendPage = (id: string) => {
-    document.location.href = `http://localhost:3000/id=${id}`;
+    document.location.href = `${process.env.REACT_APP_CLIENT_URL}id=${id}`;
   };
 
   return (

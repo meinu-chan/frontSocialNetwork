@@ -32,7 +32,7 @@ const CreatePublication: React.FC<ICreatePublication> = ({
     textareaRef.current &&
       (await axios
         .put(
-          `http://localhost:5000/api/`.concat("publication"),
+          `${process.env.REACT_APP_SERVER_URL}`.concat("publication"),
           {
             value: textareaRef.current.value,
           },

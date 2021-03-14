@@ -35,7 +35,7 @@ const register: React.FC<IAuth> = ({
     nickname.match(regexNick) &&
       password.match(regexpPass) &&
       axios
-        .post(`http://localhost:5000/api/`.concat("auth/register"), {
+        .post(`${process.env.REACT_APP_SERVER_URL}`.concat("auth/register"), {
           nickname,
           password,
         })

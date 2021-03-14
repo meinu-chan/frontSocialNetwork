@@ -34,7 +34,7 @@ const Publication: React.FC<IPublication> = ({
   const ratePublic = () => {
     axios
       .put(
-        `http://localhost:5000/api/`.concat("publication/rate"),
+        `${process.env.REACT_APP_SERVER_URL}`.concat("publication/rate"),
         {
           publicId: _id,
         },

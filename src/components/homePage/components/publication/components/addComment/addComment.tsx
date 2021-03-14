@@ -28,7 +28,7 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
     if (value.length !== 0) {
       axios
         .put(
-          `http://localhost:5000/api/`.concat("comment/addComment"),
+          `${process.env.REACT_APP_SERVER_URL}`.concat("comment/addComment"),
           {
             publicId,
             value: textareaRef.current.value,

@@ -58,7 +58,7 @@ export const Home: React.FC = () => {
     userState.userId &&
       axios
         .get(
-          `http://localhost:5000/api/`.concat(
+          `${process.env.REACT_APP_SERVER_URL}`.concat(
             `publication/getAll/${userState.userId}`
           )
         )
@@ -77,7 +77,7 @@ export const Home: React.FC = () => {
   const sendFriendRequest = () => {
     axios
       .put(
-        "http://localhost:5000/api/".concat("page/friends/send"),
+        `${process.env.REACT_APP_SERVER_URL}`.concat("page/friends/send"),
         {
           userId: userState.userId,
         },
@@ -92,12 +92,13 @@ export const Home: React.FC = () => {
       });
   };
 
+  console.log(process.env);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/api/`.concat(
+        `${process.env.REACT_APP_SERVER_URL}`.concat(
           `page/find/${window.location.href.split("/").pop()}`
         ),
         {

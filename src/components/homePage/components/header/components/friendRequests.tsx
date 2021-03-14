@@ -48,7 +48,7 @@ export default function FriendRequest({
   const handleAnswer = (userId: string, status: boolean) => {
     axios
       .put(
-        "http://localhost:5000/api".concat("/page/friends/add"),
+        `${process.env.REACT_APP_SERVER_URL}`.concat("/page/friends/add"),
         {
           userId,
           status,
@@ -63,11 +63,14 @@ export default function FriendRequest({
 
     if (status) {
       axios
-        .get(`http://localhost:5000/api/`.concat(`page/find/${userId}`), {
-          headers: {
-            Authorization: sessionStorage.getItem("token"),
-          },
-        })
+        .get(
+          `${process.env.REACT_APP_SERVER_URL}`.concat(`page/find/${userId}`),
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("token"),
+            },
+          }
+        )
         .then((res) => dispatch(setFriends(res.data.user)));
     }
   };
