@@ -1,7 +1,6 @@
 {
   "name": "front",
   "version": "0.1.0",
-  "homepage": "https://meinu-chan.github.io/frontSocialNetwork/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
@@ -35,9 +34,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
