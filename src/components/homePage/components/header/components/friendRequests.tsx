@@ -32,11 +32,14 @@ export default function FriendRequest({
   React.useEffect(() => {
     waitForRes.forEach((id) =>
       axios
-        .get(`http://localhost:5000/api/`.concat(`page/find/id=${id}`), {
-          headers: {
-            Authorization: sessionStorage.getItem("token"),
-          },
-        })
+        .get(
+          `${process.env.REACT_APP_SERVER_URL}`.concat(`page/find/id=${id}`),
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("token"),
+            },
+          }
+        )
         .then((res) => {
           const { user } = res.data;
           setUsers((prev: any) => [...prev, user]);
@@ -48,7 +51,7 @@ export default function FriendRequest({
   const handleAnswer = (userId: string, status: boolean) => {
     axios
       .put(
-        `${process.env.REACT_APP_SERVER_URL}`.concat("/page/friends/add"),
+        `${process.env.REACT_APP_SERVER_URL}`.concat("page/friends/add"),
         {
           userId,
           status,

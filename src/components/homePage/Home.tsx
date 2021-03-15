@@ -92,7 +92,6 @@ export const Home: React.FC = () => {
       });
   };
 
-  console.log(process.env);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -153,6 +152,7 @@ export const Home: React.FC = () => {
                     {publication && (
                       <Publication
                         {...publication}
+                        getAllPublications={getAllPublications}
                         nickname={userState.nickname}
                       />
                     )}

@@ -13,8 +13,8 @@ interface IPublication {
   date: Date;
   value: string;
   likedUsers: Array<String>;
-  userId: string;
   comments: Array<string>;
+  getAllPublications: () => void;
 }
 const Publication: React.FC<IPublication> = ({
   _id,
@@ -22,8 +22,8 @@ const Publication: React.FC<IPublication> = ({
   date,
   value,
   likedUsers,
-  userId,
   comments,
+  getAllPublications,
 }) => {
   const [like, setLike] = React.useState<number>(likedUsers.length);
 
@@ -59,7 +59,8 @@ const Publication: React.FC<IPublication> = ({
             ? (document.location.href = "/")
             : console.log(err.response);
         }
-      });
+      })
+      .finally(() => getAllPublications());
   };
 
   React.useEffect(() => {
