@@ -2,7 +2,8 @@
   width: 100%;
   border: none;
   display: flex;
-  align-items: center;
+  cursor: text;
+  // align-items: center;
   textarea {
     background-color: #eff1f4;
   }
@@ -12,8 +13,6 @@
   background-color: #eff1f4;
   font-family: Poppins;
   margin-top: 2%;
-  // flex-direction: column;
-  align-items: flex-end;
   border: 2px solid #ff4e5100;
   cursor: default;
 }

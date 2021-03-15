@@ -1,5 +1,6 @@
 import React, { SetStateAction } from "react";
 import { Button } from "@material-ui/core";
+import TextareaAutosize from "react-textarea-autosize";
 
 import "./addComment.scss";
 import axios from "axios";
@@ -11,17 +12,6 @@ interface IAddComment {
 
 const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
   const textareaRef = React.useRef<any>();
-
-  let textareaHeight: string | null = null;
-
-  if (textareaRef.current) {
-    textareaHeight = textareaRef.current.style.height;
-    textareaRef.current.addEventListener("keyup", () => {
-      if (textareaRef.current.scrollTop > 0) {
-        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-      }
-    });
-  }
 
   const addComment = () => {
     const value = textareaRef.current.value.trim();
@@ -41,7 +31,6 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
         )
         .then((res) => {
           textareaRef.current.value = "";
-          textareaRef.current.style.height = textareaHeight;
           updateComments((prev) => [...prev, res.data.comment._id]);
         })
         .catch((err) => {
@@ -61,12 +50,12 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
   return (
     <div className="addComment d-flex" onClick={areaFocus}>
       <div className="addComment-textarea">
-        <textarea
+        <TextareaAutosize
           ref={textareaRef}
           placeholder="Set comment..."
           className="addComment-textarea"
-          maxLength={500}
-        ></textarea>
+          maxLength={1000}
+        />
       </div>
       <div className="addComment-bottom">
         <Button variant="contained" color="primary" onClick={addComment}>

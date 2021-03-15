@@ -12,6 +12,7 @@ interface ICommentData {
   nickname: string;
   date: string;
   value: string;
+  userId: string;
 }
 
 const Comment: React.FC<IComment> = ({ commentId }) => {
@@ -20,15 +21,8 @@ const Comment: React.FC<IComment> = ({ commentId }) => {
     nickname: "",
     date: "",
     value: "",
+    userId: "",
   });
-
-  const dateFormatter = (date: Date) => {
-    const minutes =
-      date.getMinutes() < 10
-        ? `0${date.getMinutes()}`
-        : date.getMinutes().toString();
-    return `${date.getHours()}:${minutes} ${date.toDateString()}`;
-  };
 
   React.useEffect(() => {
     axios
@@ -44,12 +38,13 @@ const Comment: React.FC<IComment> = ({ commentId }) => {
         }
       )
       .then((res) => {
-        const { _id, nickname, date, value } = res.data;
+        const { _id, nickname, date, value, userId } = res.data;
         setCommentData({
           _id,
           nickname,
           date: dateFormatter(new Date(date)),
           value,
+          userId,
         });
       })
       .catch((err) => {
@@ -61,12 +56,31 @@ const Comment: React.FC<IComment> = ({ commentId }) => {
       });
   }, [commentId]);
 
+  const dateFormatter = (date: Date) => {
+    const minutes =
+      date.getMinutes() < 10
+        ? `0${date.getMinutes()}`
+        : date.getMinutes().toString();
+    return `${date.getHours()}:${minutes} ${date.toDateString()}`;
+  };
+
+  const goToCommentAuthor = () => {
+    document.location.href = `${process.env.REACT_APP_CLIENT_URL}`.concat(
+      `id=${commentData.userId}`
+    );
+  };
+
   return (
     <div className="comment d-flex">
       <div className="comment-header d-flex justify-content-between">
-        <div className="col-5 d-flex align-items-center">
-          <div className="comment-user-avatar"></div>
-          <div className="comment-user-name">{commentData.nickname}</div>
+        <div className="col-5 d-flex align-items-center comment-user-avatar-name">
+          <div
+            className="comment-user-avatar"
+            onClick={goToCommentAuthor}
+          ></div>
+          <div className="comment-user-name" onClick={goToCommentAuthor}>
+            {commentData.nickname}
+          </div>
         </div>
         <div className="d-flex w-100 comment-date-main">
           <div className="comment-date">{commentData.date}</div>

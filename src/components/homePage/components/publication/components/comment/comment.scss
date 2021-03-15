@@ -9,13 +9,12 @@
 }
 
 .comment-user-avatar {
-  margin: 0 1%;
+  cursor: pointer;
   height: 20px;
   width: 20px;
   border: 1px solid rgb(126, 126, 126);
   border-radius: 50%;
   background-image: url(../../../../../../assets/images/default-user-image.png);
-  background: cover no-repeat;
   background-size: 100% 100%;
 }
 
@@ -36,4 +35,12 @@
   border: 1px solid #ffd369;
   border-radius: inherit;
   background-color: #eff1f4;
+}
+
+.comment-user-name {
+  cursor: pointer;
+  padding: 0 1%;
+  &:hover {
+    text-decoration: underline;
+  }
 }

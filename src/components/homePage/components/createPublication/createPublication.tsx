@@ -1,6 +1,8 @@
 import React from "react";
-import { Button } from "@material-ui/core";
 import axios from "axios";
+
+import { Button } from "@material-ui/core";
+import TextareaAutosize from "react-textarea-autosize";
 
 import "./createPublication.scss";
 
@@ -16,17 +18,6 @@ const CreatePublication: React.FC<ICreatePublication> = ({
   const areaFocus = () => {
     textareaRef.current && textareaRef.current.focus();
   };
-
-  let textareaHeight: string | null = null;
-
-  if (textareaRef.current) {
-    textareaHeight = textareaRef.current.style.height;
-    textareaRef.current.addEventListener("keyup", () => {
-      if (textareaRef.current.scrollTop > 0) {
-        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-      }
-    });
-  }
 
   const addPublication = async () => {
     textareaRef.current &&
@@ -44,7 +35,7 @@ const CreatePublication: React.FC<ICreatePublication> = ({
         )
         .then(() => {
           textareaRef.current.value = "";
-          textareaRef.current.style.height = textareaHeight;
+          // textareaRef.current.style.height = textareaHeight;
         })
         .catch((err) => {
           if (err.response) {
@@ -67,12 +58,12 @@ const CreatePublication: React.FC<ICreatePublication> = ({
         onClick={areaFocus}
       >
         <div className="create-publication-textarea d-flex flex-column">
-          <textarea
+          <TextareaAutosize
             ref={textareaRef}
             className="create-publication-textarea"
             placeholder="Tell world about your day..."
-            maxLength={500}
-          ></textarea>
+            maxLength={2000}
+          />
         </div>
         <div className="create-publication-bottom d-flex flex-column align-items-end">
           <Button
