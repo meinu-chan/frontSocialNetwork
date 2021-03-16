@@ -1,50 +1,43 @@
 import React from "react";
+import { Badge } from "@material-ui/core";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 import axios from "axios";
-import { Menu, MenuItem } from "@material-ui/core/";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
-
-import { setFriends } from "../../../../../redux/actions/friends";
-import { setUser } from "../../../../../redux/actions/user";
 
 import "./friendRequests.scss";
 
-const ITEM_HEIGHT = 48;
+import { setUser } from "../../../../../redux/actions/user";
+import { setFriends } from "../../../../../redux/actions/friends";
 
 interface IFriendRequest {
-  anchorEl: null | HTMLElement;
-  open: boolean;
-  handleClose: () => void;
-  waitForRes: [string];
+  waitingForResponse: [string];
 }
 
-export default function FriendRequest({
-  anchorEl,
-  open,
-  handleClose,
-  waitForRes,
-}: IFriendRequest) {
-  const [users, setUsers] = React.useState<any>([]);
+export default function FriendRequests({ waitingForResponse }: IFriendRequest) {
+  const [showReq, setShowReq] = React.useState<boolean>(false);
+  const [users, setUsers] = React.useState<any[]>([]);
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    waitForRes.forEach((id) =>
-      axios
-        .get(
-          `${process.env.REACT_APP_SERVER_URL}`.concat(`page/find/id=${id}`),
-          {
-            headers: {
-              Authorization: sessionStorage.getItem("token"),
-            },
-          }
-        )
-        .then((res) => {
-          const { user } = res.data;
-          setUsers((prev: any) => [...prev, user]);
-        })
-    );
+    waitingForResponse.length > 0 &&
+      waitingForResponse.forEach((id) =>
+        axios
+          .get(
+            `${process.env.REACT_APP_SERVER_URL}`.concat(`page/find/id=${id}`),
+            {
+              headers: {
+                Authorization: sessionStorage.getItem("token"),
+              },
+            }
+          )
+          .then((res) => {
+            const { user } = res.data;
+            setUsers((prev) => [...prev, user]);
+          })
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -78,36 +71,36 @@ export default function FriendRequest({
     }
   };
 
+  window.onclick = (e: any) => {
+    if (
+      !e.target.closest("div").matches(".friend-req-badge") &&
+      !e.target.closest("div").matches(".friend-req-drop-user")
+    ) {
+      setShowReq(false);
+    }
+  };
+
   return (
-    <Menu
-      id="long-menu"
-      anchorEl={anchorEl}
-      keepMounted
-      open={open}
-      onClose={handleClose}
-      PaperProps={{
-        style: {
-          maxHeight: ITEM_HEIGHT * 4.5,
-          width: "20ch",
-        },
-      }}
-      className="f-req-menu"
+    <div
+      className="friend-req-badge"
+      onClick={() => setShowReq((prev) => !prev)}
     >
-      <div className="friend-req-list">Friend Requests </div>
-      {(users.length > 0 &&
-        users.map((user: any, index: number) => {
-          return (
-            user && (
-              <MenuItem
+      <Badge badgeContent={waitingForResponse.length} color="secondary">
+        <NotificationsIcon />
+      </Badge>
+      {showReq && (
+        <div className="friend-req-drop">
+          {(users.length > 0 &&
+            users.map((user: any, index: number) => (
+              <div
+                className="d-flex friend-req-drop-user"
                 key={`${user._id}_${index}`}
-                selected={user._id === "Pyxis"}
-                onClick={handleClose}
               >
                 <div className="d-flex align-items-center w-100">
                   <div className="friend-req-img"></div>
                   <div className="f-req-nickname">{user.nickname}</div>
                 </div>
-                <div className="f-req-todo">
+                <div className="d-flex f-req-todo">
                   <FontAwesomeIcon
                     icon={faCheck}
                     className="f-req-todo-accept"
@@ -119,10 +112,14 @@ export default function FriendRequest({
                     onClick={() => handleAnswer(user._id, false)}
                   />
                 </div>
-              </MenuItem>
-            )
-          );
-        })) || <div className="f-req-empty d-flex">No friend requests</div>}
-    </Menu>
+              </div>
+            ))) || (
+            <div className="friend-req-empty-list d-flex">
+              No friend requests
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 }

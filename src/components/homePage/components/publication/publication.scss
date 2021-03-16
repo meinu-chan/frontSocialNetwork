@@ -12,9 +12,9 @@
   font-family: Poppins;
   background-color: #ff4e50;
   border-bottom: none;
-  align-items: center;
-  justify-content: flex-start;
   max-height: fit-content;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
   p {
     margin: 0;
   }
@@ -26,6 +26,14 @@
   align-self: center;
 }
 
+.publication-single {
+  border-radius: 10px;
+}
+
+.publication-first {
+  border-radius: 10px 10px 0 0;
+}
+
 .publication-last {
   border-radius: 0 0 10px 10px;
 }
@@ -34,10 +42,12 @@
   width: 100%;
   border-radius: inherit;
 }
+
 .publication-main {
   width: inherit;
   border: 2px solid #ff4e50;
-  border-radius: inherit;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
   background-color: #dcdcdc;
 }
 

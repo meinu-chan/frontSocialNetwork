@@ -23,6 +23,7 @@ const FriendsList: React.FC = () => {
   const [showFriends, setShowFriends] = React.useState<boolean>(false);
 
   const dispatch = useDispatch();
+
   React.useEffect(() => {
     axios
       .get(
@@ -31,9 +32,11 @@ const FriendsList: React.FC = () => {
         )
       )
       .then((res) => {
-        dispatch(setFriends(...res.data.friends));
+        console.log(res);
+        dispatch(setFriends(res.data.friends));
       });
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const friendsState = useSelector(({ friends }: RootState) => friends);
 

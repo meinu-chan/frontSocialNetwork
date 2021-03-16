@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Badge,
-} from "@material-ui/core";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -36,15 +29,6 @@ const Header: React.FC = () => {
   const nicknameRef = React.useRef<any>();
   const anchorElRef = React.useRef<null | HTMLDivElement>(null);
   const [render, setRender] = React.useState<boolean>(true);
-  const [open, setOpen] = React.useState<boolean>(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const headerState: DefaultRootState = useSelector(({ user }: RootState) => {
     const { waitingForResponse, _id: userId } = user;
@@ -61,6 +45,7 @@ const Header: React.FC = () => {
   }, [userId]);
 
   const findByNickname = () => {
+    console.log(nicknameRef.current);
     nicknameRef.current &&
       axios
         .get(
@@ -82,54 +67,36 @@ const Header: React.FC = () => {
   };
 
   return (
-    <>
-      {render && (
-        <FriendRequests
-          waitForRes={waitingForResponse}
-          anchorEl={anchorElRef.current}
-          open={open}
-          handleClose={handleClose}
-        />
-      )}
-      <div className="main-header d-flex">
-        <AppBar position="static" className="m-header">
-          <div className="container">
-            <Toolbar className="d-flex justify-content-between">
-              <Typography className="col-9" variant="h6" noWrap>
-                Social Network
-              </Typography>
-              <div
-                className="badge-icon-header"
-                ref={anchorElRef}
-                onClick={handleClick}
-              >
-                {render && (
-                  <IconButton color="inherit">
-                    <Badge
-                      badgeContent={waitingForResponse.length}
-                      color="secondary"
-                    >
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
-                )}
+    <div className="main-header d-flex">
+      <AppBar position="static" className="m-header">
+        <div className="container">
+          <Toolbar className="d-flex justify-content-between">
+            <Typography className="col-9" variant="h6" noWrap>
+              Social Network
+            </Typography>
+            {render && (
+              <div className="badge-icon-header" ref={anchorElRef}>
+                <FriendRequests waitingForResponse={waitingForResponse} />
               </div>
+            )}
 
-              <div className="main-header-search d-flex">
-                <div className="header-searchIcon">
-                  <SearchIcon onClick={findByNickname} />
-                </div>
-                <input
-                  className="header-input"
-                  ref={nicknameRef}
-                  placeholder="Find user..."
-                />
+            <div
+              className="main-header-search d-flex"
+              style={render ? { flexGrow: 1 } : { flexGrow: 0 }}
+            >
+              <div className="header-searchIcon">
+                <SearchIcon onClick={findByNickname} />
               </div>
-            </Toolbar>
-          </div>
-        </AppBar>
-      </div>
-    </>
+              <input
+                className="header-input"
+                ref={nicknameRef}
+                placeholder="Find user..."
+              />
+            </div>
+          </Toolbar>
+        </div>
+      </AppBar>
+    </div>
   );
 };
 export default Header;

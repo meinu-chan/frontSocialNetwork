@@ -113,6 +113,17 @@ export const Home: React.FC = () => {
       });
   }, [dispatch, getAllPublications, id, userState.userId]);
 
+  const classCheckerForPublication = (index: number): string => {
+    if (!myPage && publics.length === 1) {
+      return "user-publication publication-single";
+    } else if (index === 0) {
+      return "user-publication publication-last";
+    } else if (!myPage && index === publics.length - 1) {
+      return "user-publication publication-first";
+    }
+    return "user-publication";
+  };
+
   return (
     <div className="container home-main d-flex">
       <Header />
@@ -145,9 +156,7 @@ export const Home: React.FC = () => {
                 return (
                   <div
                     key={`${index}_${Date.now()}`}
-                    className={`user-publication ${
-                      index === 0 ? "publication-last" : ""
-                    }`}
+                    className={classCheckerForPublication(index)}
                   >
                     {publication && (
                       <Publication
