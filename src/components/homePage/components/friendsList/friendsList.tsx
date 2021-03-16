@@ -32,11 +32,9 @@ const FriendsList: React.FC = () => {
         )
       )
       .then((res) => {
-        console.log(res);
         dispatch(setFriends(res.data.friends));
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   const friendsState = useSelector(({ friends }: RootState) => friends);
 

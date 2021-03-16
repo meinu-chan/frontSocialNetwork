@@ -22,7 +22,6 @@ interface User {
 
 interface DefaultRootState {
   userId: string;
-  waitingForResponse: [string];
 }
 
 const Header: React.FC = () => {
@@ -31,12 +30,12 @@ const Header: React.FC = () => {
   const [render, setRender] = React.useState<boolean>(true);
 
   const headerState: DefaultRootState = useSelector(({ user }: RootState) => {
-    const { waitingForResponse, _id: userId } = user;
+    const { _id: userId } = user;
 
-    return { waitingForResponse, userId };
+    return { userId };
   });
 
-  const { waitingForResponse, userId } = headerState;
+  const { userId } = headerState;
 
   React.useEffect(() => {
     userId === sessionStorage.getItem("userId")
@@ -76,7 +75,7 @@ const Header: React.FC = () => {
             </Typography>
             {render && (
               <div className="badge-icon-header" ref={anchorElRef}>
-                <FriendRequests waitingForResponse={waitingForResponse} />
+                <FriendRequests />
               </div>
             )}
 
