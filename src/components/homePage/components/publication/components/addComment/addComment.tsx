@@ -40,6 +40,9 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
               : console.log(err.response);
           }
         });
+    } else {
+      textareaRef.current.value = value;
+      updateComments((prev) => [...prev]);
     }
   };
 
@@ -56,7 +59,8 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
           className="addComment-textarea"
           maxLength={1000}
           onKeyPress={(e) => {
-            if (e.shiftKey && e.key === "Enter") {
+            if (!e.shiftKey && e.key === "Enter") {
+              e.preventDefault();
               addComment();
             }
           }}

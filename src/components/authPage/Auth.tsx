@@ -20,8 +20,8 @@ export const Auth: React.FC = () => {
 
   return (
     <div className="authPage">
-      <div className="auth">
-        <form className="authForm">
+      <div className="auth d-flex">
+        <form className="authForm d-flex flex-column">
           {(showLogin && (
             <Login
               nicknameSetter={nicknameSetter}

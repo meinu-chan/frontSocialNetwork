@@ -7,7 +7,7 @@ import { Home } from "./components/homePage/Home";
 class App extends React.Component {
   render() {
     return (
-      <BrowserRouter basename={process.env.REACT_APP_CLIENT_URL}>
+      <BrowserRouter >
         <Route path="/" exact component={Auth} />
         <Route path="/:id" exact component={Home} />
       </BrowserRouter>

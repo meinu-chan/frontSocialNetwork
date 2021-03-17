@@ -33,9 +33,6 @@ const CreatePublication: React.FC<ICreatePublication> = ({
             },
           }
         )
-        .then(() => {
-          textareaRef.current.value = "";
-        })
         .catch((err) => {
           if (err.response) {
             err.response.status === 401
@@ -43,7 +40,7 @@ const CreatePublication: React.FC<ICreatePublication> = ({
               : console.log(err.response);
           }
         }));
-
+    textareaRef.current.value = "";
     getPublications();
   };
 
@@ -63,7 +60,8 @@ const CreatePublication: React.FC<ICreatePublication> = ({
             placeholder="Tell world about your day..."
             maxLength={2000}
             onKeyPress={(e) => {
-              if (e.shiftKey && e.key === "Enter") {
+              if (!e.shiftKey && e.key === "Enter") {
+                e.preventDefault();
                 addPublication();
               }
             }}

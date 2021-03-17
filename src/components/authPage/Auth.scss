@@ -1,11 +1,3 @@
-#auth {
-  display: block;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .authDiv {
   display: flex;
   flex-direction: column;
@@ -27,8 +19,7 @@
 
 .authForm {
   width: fit-content;
-  margin: 50% auto;
-  transform: translate(0, -25%);
+  height: fit-content;
 
   .MuiButton-outlinedPrimary {
     color: #fff !important;
@@ -52,6 +43,8 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   background-color: #414141;
   color: #fff;
+  justify-content: space-around;
+  align-items: center;
   h2 {
     text-align: center;
   }
@@ -71,6 +64,10 @@
   input.MuiInputBase-input.MuiInput-input {
     color: #fff;
   }
+
+  .MuiFormGroup-root {
+    align-items: center;
+  }
 }
 
 .authPage {
@@ -89,3 +86,12 @@
 .MuiFormControl-root {
   max-width: 90% !important;
 }
+
+@media screen and (max-width: 1400px) {
+  .auth {
+    width: 250px;
+    h2 {
+      font-size: 25px;
+    }
+  }
+} ;
