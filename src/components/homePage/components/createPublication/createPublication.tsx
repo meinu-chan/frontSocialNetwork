@@ -20,12 +20,12 @@ const CreatePublication: React.FC<ICreatePublication> = ({
   };
 
   const addPublication = async () => {
-    textareaRef.current &&
+    textareaRef.current?.value.trim().length > 0 &&
       (await axios
         .put(
           `${process.env.REACT_APP_SERVER_URL}`.concat("publication"),
           {
-            value: textareaRef.current.value,
+            value: textareaRef.current.value.trim(),
           },
           {
             headers: {
@@ -35,7 +35,6 @@ const CreatePublication: React.FC<ICreatePublication> = ({
         )
         .then(() => {
           textareaRef.current.value = "";
-          // textareaRef.current.style.height = textareaHeight;
         })
         .catch((err) => {
           if (err.response) {
@@ -63,6 +62,11 @@ const CreatePublication: React.FC<ICreatePublication> = ({
             className="create-publication-textarea"
             placeholder="Tell world about your day..."
             maxLength={2000}
+            onKeyPress={(e) => {
+              if (e.shiftKey && e.key === "Enter") {
+                addPublication();
+              }
+            }}
           />
         </div>
         <div className="create-publication-bottom d-flex flex-column align-items-end">

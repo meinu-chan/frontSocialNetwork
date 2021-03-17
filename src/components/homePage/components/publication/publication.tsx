@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Linkify from "react-linkify";
 
 import ModalWindow from "./components/modalWindow/modalWindow";
 
@@ -104,7 +105,9 @@ const Publication: React.FC<IPublication> = ({
       </div>
       <div className="publication-main">
         <div className="publication-body">
-          <p>{value}</p>
+          <Linkify>
+            <p>{value}</p>
+          </Linkify>
         </div>
         <div className="publication-bottom">
           <div className="publication-evaluation d-flex ">

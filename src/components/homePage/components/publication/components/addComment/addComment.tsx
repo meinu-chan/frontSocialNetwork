@@ -21,7 +21,7 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
           `${process.env.REACT_APP_SERVER_URL}`.concat("comment/addComment"),
           {
             publicId,
-            value: textareaRef.current.value,
+            value: textareaRef.current.value.trim(),
           },
           {
             headers: {
@@ -55,6 +55,11 @@ const AddComment: React.FC<IAddComment> = ({ publicId, updateComments }) => {
           placeholder="Set comment..."
           className="addComment-textarea"
           maxLength={1000}
+          onKeyPress={(e) => {
+            if (e.shiftKey && e.key === "Enter") {
+              addComment();
+            }
+          }}
         />
       </div>
       <div className="addComment-bottom">

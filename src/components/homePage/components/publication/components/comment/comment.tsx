@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Linkify from "react-linkify";
 
 import "./comment.scss";
 
@@ -86,7 +87,9 @@ const Comment: React.FC<IComment> = ({ commentId }) => {
           <div className="comment-date">{commentData.date}</div>
         </div>
       </div>
-      <div className="comment-body">{commentData.value}</div>
+      <div className="comment-body">
+        <Linkify>{commentData.value} </Linkify>
+      </div>
     </div>
   );
 };

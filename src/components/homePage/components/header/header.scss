@@ -1,18 +1,42 @@
 .main-header {
   position: fixed;
   width: 100% !important;
+  justify-content: space-between;
   flex-grow: 1;
   top: 0;
   left: 0;
   z-index: 1000;
 }
 
+.header-logo {
+  cursor: pointer;
+  width: fit-content;
+  margin-right: 10%;
+}
+
+.header-search-btn {
+  margin-left: 10px !important;
+}
+
 .m-header {
   background-color: #3a302f !important;
 }
 
+.header-link-my-page {
+  cursor: pointer;
+  font-size: 20px;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.header-typography {
+  overflow: visible !important;
+  align-items: flex-end;
+  width: fit-content;
+}
 .main-header-search {
-  flex-grow: 1;
+  align-items: center;
   position: relative;
   border-radius: 4px;
   margin-left: 0;

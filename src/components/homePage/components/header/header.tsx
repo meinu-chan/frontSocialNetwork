@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -44,7 +44,6 @@ const Header: React.FC = () => {
   }, [userId]);
 
   const findByNickname = () => {
-    console.log(nicknameRef.current);
     nicknameRef.current &&
       axios
         .get(
@@ -65,32 +64,58 @@ const Header: React.FC = () => {
         });
   };
 
+  const goMyPage = () => {
+    document.location.href = `${process.env.REACT_APP_CLIENT_URL}`.concat(
+      `id=${sessionStorage.getItem("userId")}`
+    );
+  };
+
   return (
     <div className="main-header d-flex">
       <AppBar position="static" className="m-header">
         <div className="container">
           <Toolbar className="d-flex justify-content-between">
-            <Typography className="col-9" variant="h6" noWrap>
-              Social Network
-            </Typography>
-            {render && (
-              <div className="badge-icon-header" ref={anchorElRef}>
-                <FriendRequests />
-              </div>
-            )}
-
-            <div
-              className="main-header-search d-flex"
-              style={render ? { flexGrow: 1 } : { flexGrow: 0 }}
+            <Typography
+              variant="h6"
+              noWrap
+              onClick={goMyPage}
+              className="d-flex header-typography"
             >
-              <div className="header-searchIcon">
-                <SearchIcon onClick={findByNickname} />
+              <div className="header-logo">Social Network</div>
+              {!render && <div className="header-link-my-page">My page</div>}
+            </Typography>
+            <div className="d-flex align-items-center">
+              {render && (
+                <div className="badge-icon-header" ref={anchorElRef}>
+                  <FriendRequests />
+                </div>
+              )}
+
+              <div
+                className="main-header-search d-flex"
+                style={render ? { flexGrow: 1 } : { flexGrow: 0 }}
+              >
+                <div className="header-searchIcon">
+                  <SearchIcon onClick={findByNickname} />
+                </div>
+                <input
+                  className="header-input"
+                  ref={nicknameRef}
+                  placeholder="Find user..."
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      findByNickname();
+                    }
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  className="header-search-btn"
+                  onClick={findByNickname}
+                >
+                  Search
+                </Button>
               </div>
-              <input
-                className="header-input"
-                ref={nicknameRef}
-                placeholder="Find user..."
-              />
             </div>
           </Toolbar>
         </div>

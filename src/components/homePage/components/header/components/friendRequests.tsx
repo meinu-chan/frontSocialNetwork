@@ -27,8 +27,6 @@ interface User {
 interface DefaultRootState {
   waitingForResponse: [string];
   _id: string;
-  friends: any[];
-  nickname: string;
 }
 
 export default function FriendRequests() {
@@ -39,13 +37,13 @@ export default function FriendRequests() {
 
   const friendReqState: DefaultRootState = useSelector(
     ({ user }: RootState) => {
-      const { waitingForResponse, _id, friends, nickname } = user;
+      const { waitingForResponse, _id } = user;
 
-      return { waitingForResponse, _id, friends, nickname };
+      return { waitingForResponse, _id };
     }
   );
 
-  const { waitingForResponse, _id, nickname } = friendReqState;
+  const { waitingForResponse, _id } = friendReqState;
 
   React.useEffect(() => {
     waitingForResponse.length > 0 &&
