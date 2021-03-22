@@ -3,7 +3,7 @@
     padding: 0 !important;
     background-color: #313131;
     border-radius: 0 0 10px 10px;
-    flex-direction: column !important;
+    flex-direction: column;
     border: 1px solid #ff4e50;
     height: 70vh;
     overflow: hidden;
@@ -30,7 +30,6 @@
     height: 100px;
     width: 100px;
     background-image: url(../../../../assets//images//default-user-image.png);
-    background: cover no-repeat;
     background-size: 100% 100%;
   }
   &:hover {
@@ -39,6 +38,7 @@
     transition: 0.5s;
   }
 }
+
 .friends-bottom {
   display: flex;
   text-align: center;
@@ -68,4 +68,52 @@
   height: 100%;
   font-family: Poppins;
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .friend-image {
+    height: 50px !important;
+    width: 50px !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .user-root {
+    flex-direction: column-reverse;
+  }
+  .list-friends {
+    justify-content: space-between;
+    flex-direction: row !important;
+    height: fit-content !important;
+    border-radius: 0px !important;
+    .list-friends-friend {
+      flex: 0 0 auto;
+      width: 33.333333% !important;
+      height: fit-content;
+    }
+    .friend {
+      width: 100%;
+    }
+  }
+  .friends-bottom {
+    transform: none;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .list-friends {
+    display: none !important;
+  }
+  .friends-bottom {
+    display: none !important;
+  }
+
+  .friends-header {
+    border: 1px solid #ff4e50;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
 }

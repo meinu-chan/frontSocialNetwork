@@ -6,17 +6,10 @@ import Linkify from "react-linkify";
 
 import ModalWindow from "./components/modalWindow/modalWindow";
 
+import { IPublication } from "../../../../Interfaces/BasicInterfaces";
+
 import "./publication.scss";
 
-interface IPublication {
-  _id: number;
-  nickname: string;
-  date: Date;
-  value: string;
-  likedUsers: Array<String>;
-  comments: Array<string>;
-  getAllPublications: () => void;
-}
 const Publication: React.FC<IPublication> = ({
   _id,
   nickname,

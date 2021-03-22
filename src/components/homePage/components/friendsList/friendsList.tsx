@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
@@ -43,7 +42,7 @@ const FriendsList: React.FC<IFriendsList> = ({ friends }) => {
         friends={friendsState}
       />
       <div className="user-friends">
-        <div className="friends-header">
+        <div className="friends-header" onClick={() => setShowFriends(true)}>
           <h4>Friends: {friendsState.length}</h4>
         </div>
         <div className="list-friends d-flex">
@@ -52,7 +51,7 @@ const FriendsList: React.FC<IFriendsList> = ({ friends }) => {
               return (
                 <div
                   key={`${friend.friendId}_${index}`}
-                  className="d-flex w-100"
+                  className="list-friends-friend d-flex w-100"
                 >
                   <div
                     className="friend d-flex"

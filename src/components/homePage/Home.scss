@@ -39,11 +39,10 @@
 }
 
 .user-publication {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .user-body {
-  margin: 0 50px;
   height: 100%;
   align-items: center;
   flex-direction: column;
@@ -53,6 +52,7 @@
   align-self: center;
   width: fit-content;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .user-publications-empty {
@@ -60,3 +60,37 @@
   align-self: center;
   font-size: 25px;
 }
+
+@media screen and (max-width: 992px) {
+  .user-root {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .user-friends-root {
+    width: 100%;
+  }
+
+  .user-body {
+    width: 100%;
+  }
+
+  .user-about {
+    margin: 50px 0;
+  }
+  .paper {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .user-image {
+    height: 100px !important;
+    width: 100px !important;
+  }
+} ;

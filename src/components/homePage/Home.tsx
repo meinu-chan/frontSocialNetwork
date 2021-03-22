@@ -11,7 +11,11 @@ import Header from "./components/header/header";
 import AddFriendButton from "./components/addFriendButton/addFriendButton";
 
 import { setUser } from "../../redux/actions/user";
-import { IFriend, IWaiting } from "../../Interfaces/BasicInterfaces";
+import {
+  IFriend,
+  IPublication,
+  IWaiting,
+} from "../../Interfaces/BasicInterfaces";
 
 interface RootState {
   user: User;
@@ -20,7 +24,7 @@ interface RootState {
 interface User {
   friends: IFriend[];
   nickname: string;
-  publications: [];
+  publications: IPublication[];
   _id: string;
   requests: [string];
   waitingForResponse: IWaiting[];
@@ -29,7 +33,7 @@ interface User {
 interface DefaultRootState {
   friends: IFriend[];
   nickname: string;
-  publications: any[];
+  publications: IPublication[];
   userId: string;
   requests: [string];
   follow: boolean;
@@ -48,7 +52,7 @@ export const Home: React.FC = () => {
         follow = true;
       }
     });
-    console.log(waitingForResponse);
+
     return {
       friends,
       nickname,
@@ -166,7 +170,7 @@ export const Home: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="d-flex">
+      <div className="user-root d-flex justify-content-around">
         <div className="user-body d-flex col-8">
           {myPage && (
             <div className="user-create-publication">
@@ -198,7 +202,7 @@ export const Home: React.FC = () => {
             )}
           </div>
         </div>
-        <div className="col-3 ">
+        <div className="user-friends-root col-3 ">
           <FriendsList friends={userState.friends} />
         </div>
       </div>
