@@ -8,33 +8,23 @@ import { useSelector, useDispatch } from "react-redux";
 import "./friendsList.scss";
 import { setFriends } from "../../../../redux/actions/friends";
 import FriendsListModal from "./components/friendListModal/friendListModal";
+import { IFriend } from "../../../../Interfaces/BasicInterfaces";
 
 interface RootState {
-  friends: [User];
+  friends: [IFriend];
 }
 
-interface User {
-  nickname: string;
-  publications: [];
-  _id: string;
-  friends: [User];
+interface IFriendsList {
+  friends: any[];
 }
-const FriendsList: React.FC = () => {
+const FriendsList: React.FC<IFriendsList> = ({ friends }) => {
   const [showFriends, setShowFriends] = React.useState<boolean>(false);
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    axios
-      .get(
-        `${process.env.REACT_APP_SERVER_URL}`.concat(
-          `page/friends/${window.location.href.split("/").pop()}`
-        )
-      )
-      .then((res) => {
-        dispatch(setFriends(res.data.friends));
-      });
-  }, [dispatch]);
+    friends && dispatch(setFriends(friends));
+  }, [dispatch, friends]);
 
   const friendsState = useSelector(({ friends }: RootState) => friends);
 
@@ -60,15 +50,18 @@ const FriendsList: React.FC = () => {
           {(friendsState.length > 0 &&
             friendsState.map((friend, index) => {
               return (
-                <div key={`${friend._id}_${index}`} className="d-flex w-100">
+                <div
+                  key={`${friend.friendId}_${index}`}
+                  className="d-flex w-100"
+                >
                   <div
                     className="friend d-flex"
-                    onClick={() => handleToFriendPage(friend._id)}
+                    onClick={() => handleToFriendPage(friend.friendId)}
                   >
                     <div className="friend-image"> </div>
 
                     <div className="friend-nickname">
-                      <h5>{friend.nickname}</h5>
+                      <h5>{friend.friendNickname}</h5>
                     </div>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./friendRequests.scss";
 
 import { setUser } from "../../../../../redux/actions/user";
-import { setFriends } from "../../../../../redux/actions/friends";
+import { IFriend, IWaiting } from "../../../../../Interfaces/BasicInterfaces";
 
 interface RootState {
   user: User;
@@ -18,52 +18,29 @@ interface RootState {
 interface User {
   nickname: string;
   publications: [];
-  _id: string;
   requests: [string];
-  waitingForResponse: [string];
-  friends: any[];
+  waitingForResponse: IWaiting[];
+  friends: IFriend[];
 }
 
 interface DefaultRootState {
-  waitingForResponse: [string];
-  _id: string;
+  waitingForResponse: IWaiting[];
 }
 
 export default function FriendRequests() {
   const [showReq, setShowReq] = React.useState<boolean>(false);
-  const [users, setUsers] = React.useState<any[]>([]);
 
   const dispatch = useDispatch();
 
   const friendReqState: DefaultRootState = useSelector(
     ({ user }: RootState) => {
-      const { waitingForResponse, _id } = user;
+      const { waitingForResponse } = user;
 
-      return { waitingForResponse, _id };
+      return { waitingForResponse };
     }
   );
 
-  const { waitingForResponse, _id } = friendReqState;
-
-  React.useEffect(() => {
-    waitingForResponse.length > 0 &&
-      waitingForResponse.forEach((id) =>
-        axios
-          .get(
-            `${process.env.REACT_APP_SERVER_URL}`.concat(`page/find/id=${id}`),
-            {
-              headers: {
-                Authorization: sessionStorage.getItem("token"),
-              },
-            }
-          )
-          .then((res) => {
-            const { user } = res.data;
-            setUsers((prev) => [...prev, user]);
-          })
-      );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { waitingForResponse } = friendReqState;
 
   const handleAnswer = (userId: string, status: boolean) =>
     axios
@@ -80,25 +57,8 @@ export default function FriendRequests() {
         }
       )
       .then((res) => {
-        const { user } = res.data;
-        setUsers([...user.waitingForResponse]);
-        dispatch(setUser(user));
-      })
-      .then(() => {
-        if (status) {
-          axios
-            .get(
-              `${process.env.REACT_APP_SERVER_URL}`.concat(
-                `page/friends/id=${_id}`
-              ),
-              {
-                headers: {
-                  Authorization: sessionStorage.getItem("token"),
-                },
-              }
-            )
-            .then((res) => dispatch(setFriends(res.data.friends)));
-        }
+        const { data } = res;
+        dispatch(setUser(data));
       });
 
   window.onclick = (e: any) => {
@@ -120,26 +80,26 @@ export default function FriendRequests() {
       </Badge>
       {showReq && (
         <div className="friend-req-drop">
-          {(users.length > 0 &&
-            users.map((user: any, index: number) => (
+          {(waitingForResponse.length > 0 &&
+            waitingForResponse.map((user: any, index: number) => (
               <div
                 className="d-flex friend-req-drop-user"
-                key={`${user._id}_${index}`}
+                key={`${user.waiterId}_${index}`}
               >
                 <div className="d-flex align-items-center w-100">
                   <div className="friend-req-img"></div>
-                  <div className="f-req-nickname">{user.nickname}</div>
+                  <div className="f-req-nickname">{user.waiterNickname}</div>
                 </div>
                 <div className="d-flex f-req-todo">
                   <FontAwesomeIcon
                     icon={faCheck}
                     className="f-req-todo-accept"
-                    onClick={() => handleAnswer(user._id, true)}
+                    onClick={() => handleAnswer(user.waiterId, true)}
                   />
                   <FontAwesomeIcon
                     icon={faTimes}
                     className="f-req-todo-decline"
-                    onClick={() => handleAnswer(user._id, false)}
+                    onClick={() => handleAnswer(user.waiterId, false)}
                   />
                 </div>
               </div>

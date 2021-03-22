@@ -11,22 +11,23 @@ import Header from "./components/header/header";
 import AddFriendButton from "./components/addFriendButton/addFriendButton";
 
 import { setUser } from "../../redux/actions/user";
+import { IFriend, IWaiting } from "../../Interfaces/BasicInterfaces";
 
 interface RootState {
   user: User;
 }
 
 interface User {
-  friends: [any];
+  friends: IFriend[];
   nickname: string;
   publications: [];
   _id: string;
   requests: [string];
-  waitingForResponse: [string];
+  waitingForResponse: IWaiting[];
 }
 
 interface DefaultRootState {
-  friends: [any];
+  friends: IFriend[];
   nickname: string;
   publications: any[];
   userId: string;
@@ -40,16 +41,20 @@ export const Home: React.FC = () => {
   const id: string | null = sessionStorage.getItem("userId");
 
   const userState: DefaultRootState = useSelector(({ user }: RootState) => {
-    const { nickname, _id, requests: _req, waitingForResponse, friends } = user;
-    const follow = waitingForResponse.includes(
-      sessionStorage.getItem("userId")!
-    );
+    const { nickname, _id, requests, waitingForResponse, friends } = user;
+    let follow = false;
+    waitingForResponse?.forEach((user: IWaiting) => {
+      if (user.waiterId === sessionStorage.getItem("userId")) {
+        follow = true;
+      }
+    });
+    console.log(waitingForResponse);
     return {
       friends,
       nickname,
       publications: publics,
       userId: _id,
-      requests: _req,
+      requests,
       follow,
     };
   });
@@ -88,7 +93,25 @@ export const Home: React.FC = () => {
         }
       )
       .then((res) => {
-        dispatch(setUser(res.data.potentialFriend));
+        dispatch(setUser(res.data));
+      });
+  };
+
+  const deleteFriend = () => {
+    axios
+      .put(
+        `${process.env.REACT_APP_SERVER_URL}`.concat("page/friends/delete"),
+        {
+          userId: userState.userId,
+        },
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(setUser(res.data));
       });
   };
 
@@ -136,6 +159,7 @@ export const Home: React.FC = () => {
           <div className="user-add-friend-button">
             <AddFriendButton
               sendFriendRequest={sendFriendRequest}
+              deleteFriend={deleteFriend}
               follow={userState.follow}
               friends={userState.friends}
             />
@@ -175,7 +199,7 @@ export const Home: React.FC = () => {
           </div>
         </div>
         <div className="col-3 ">
-          <FriendsList />
+          <FriendsList friends={userState.friends} />
         </div>
       </div>
     </div>

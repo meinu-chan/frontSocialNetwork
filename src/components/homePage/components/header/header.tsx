@@ -48,7 +48,7 @@ const Header: React.FC = () => {
       axios
         .get(
           `${process.env.REACT_APP_SERVER_URL}`.concat(
-            `page/find/name/nickname=${nicknameRef.current.value}`
+            `page/find/nickname=${nicknameRef.current.value}`
           ),
           {
             headers: {
