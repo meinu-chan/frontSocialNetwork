@@ -45,3 +45,29 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .paper-publication {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .publication {
+    &-name {
+      h4 {
+        font-size: 18px;
+      }
+      &-header {
+        .col-5 {
+          width: 25%;
+        }
+      }
+    }
+    &-data {
+      p {
+        font-size: 11px;
+      }
+    }
+  }
+} ;

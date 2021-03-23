@@ -29,3 +29,22 @@
     transition: 0.5s;
   }
 }
+
+@media screen and (max-width: 560px) {
+  .modal-window-friend-avatar {
+    height: 60px;
+    width: 60px;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .paper-Modal {
+    .paper {
+      width: fit-content !important;
+      .modal-window-friend-avatar {
+        height: 60px;
+        width: 60px;
+      }
+    }
+  }
+}

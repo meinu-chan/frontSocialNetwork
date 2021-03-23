@@ -29,7 +29,7 @@ const FriendListModal: React.FC<IModalWindow> = ({
       }}
     >
       <Fade in={open}>
-        <div className="paper">
+        <div className="paper paper-Modal">
           <ul className="d-flex row">
             {friends &&
               friends.map((friend) => {

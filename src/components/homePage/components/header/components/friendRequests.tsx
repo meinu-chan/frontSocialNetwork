@@ -59,6 +59,13 @@ export default function FriendRequests() {
       .then((res) => {
         const { data } = res;
         dispatch(setUser(data));
+      })
+      .catch((err) => {
+        if (err.response) {
+          err.response.status === 401
+            ? (document.location.href = "/")
+            : console.log(err.response);
+        }
       });
 
   window.onclick = (e: any) => {
@@ -68,6 +75,10 @@ export default function FriendRequests() {
     ) {
       setShowReq(false);
     }
+  };
+
+  const handleToFriendPage = (id: string) => {
+    document.location.href = `${process.env.REACT_APP_CLIENT_URL}id=${id}`;
   };
 
   return (
@@ -88,7 +99,12 @@ export default function FriendRequests() {
               >
                 <div className="d-flex align-items-center w-100">
                   <div className="friend-req-img"></div>
-                  <div className="f-req-nickname">{user.waiterNickname}</div>
+                  <div
+                    className="f-req-nickname"
+                    onClick={() => handleToFriendPage(user.waiterId)}
+                  >
+                    {user.waiterNickname}
+                  </div>
                 </div>
                 <div className="d-flex f-req-todo">
                   <FontAwesomeIcon

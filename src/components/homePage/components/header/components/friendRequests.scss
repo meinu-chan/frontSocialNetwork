@@ -57,3 +57,11 @@ $margin-right-f-req-todo: 10%;
   align-items: center;
   justify-content: center;
 }
+
+.f-req-nickname {
+  margin-left: 5%;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}

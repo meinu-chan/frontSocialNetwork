@@ -107,3 +107,25 @@
     transition: 0.3s;
   }
 }
+
+@media screen and (max-width: 390px) {
+  .publication {
+    &-data {
+      p {
+        font-size: 90%;
+      }
+    }
+    &-name {
+      h4 {
+        font-size: 90%;
+      }
+    }
+    &-avatar {
+      height: 30px;
+      width: 30px;
+    }
+    &-header {
+      font-size: 90%;
+    }
+  }
+} ;

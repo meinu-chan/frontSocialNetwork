@@ -39,10 +39,10 @@ const ModalWindow: React.FC<IModalWindow> = ({
       }}
     >
       <Fade in={open}>
-        <div className="paper">
+        <div className="paper paper-publication">
           <div className="publication-modal">
-            <div className="publication-header d-flex justify-content-between">
-              <div className="col-5 d-flex">
+            <div className="publication-header d-flex justify-content-between align-items-center">
+              <div className="col-5 d-flex align-items-center">
                 <div className="publication-avatar"></div>
                 <div className="publication-name">
                   <h4>{nickname}</h4>

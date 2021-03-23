@@ -57,3 +57,19 @@
 .badge-icon-header {
   margin-right: 5%;
 }
+
+@media screen and (max-width: 560px) {
+  .header-typography {
+    margin: 0 auto !important;
+  }
+
+  .root-nav {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .header-search-btn {
+    display: none !important;
+  }
+} ;

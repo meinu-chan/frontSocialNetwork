@@ -40,11 +40,7 @@ export default function AddFriendButton({
               : sendFriendRequest
           }
         >
-          {follow
-            ? "Sended..."
-            : alreadyFriend
-            ? "Delete"
-            : "Send Friend Request"}
+          {follow ? "Sended..." : alreadyFriend ? "Delete" : "Add"}
         </Button>
       )}
     </div>

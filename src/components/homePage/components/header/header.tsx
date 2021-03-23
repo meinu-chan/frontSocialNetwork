@@ -61,6 +61,13 @@ const Header: React.FC = () => {
           document.location.href = `${process.env.REACT_APP_CLIENT_URL}`.concat(
             `id=${res.data.user._id}`
           );
+        })
+        .catch((err) => {
+          if (err.response) {
+            err.response.status === 401
+              ? (document.location.href = "/")
+              : console.log(err.response);
+          }
         });
   };
 
@@ -74,7 +81,7 @@ const Header: React.FC = () => {
     <div className="main-header d-flex">
       <AppBar position="static" className="m-header">
         <div className="container">
-          <Toolbar className="d-flex justify-content-between">
+          <Toolbar className="d-flex justify-content-between flex-wrap align-center">
             <Typography
               variant="h6"
               noWrap
@@ -84,7 +91,7 @@ const Header: React.FC = () => {
               <div className="header-logo">Social Network</div>
               {!render && <div className="header-link-my-page">My page</div>}
             </Typography>
-            <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center root-nav">
               {render && (
                 <div className="badge-icon-header" ref={anchorElRef}>
                   <FriendRequests />

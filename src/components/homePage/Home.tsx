@@ -98,6 +98,13 @@ export const Home: React.FC = () => {
       )
       .then((res) => {
         dispatch(setUser(res.data));
+      })
+      .catch((err) => {
+        if (err.response) {
+          err.response.status === 401
+            ? (document.location.href = "/")
+            : console.log(err.response);
+        }
       });
   };
 
@@ -116,6 +123,13 @@ export const Home: React.FC = () => {
       )
       .then((res) => {
         dispatch(setUser(res.data));
+      })
+      .catch((err) => {
+        if (err.response) {
+          err.response.status === 401
+            ? (document.location.href = "/")
+            : console.log(err.response);
+        }
       });
   };
 
@@ -137,6 +151,13 @@ export const Home: React.FC = () => {
         dispatch(setUser(res.data.user));
         setMyPage(userState.userId === id);
         getAllPublications();
+      })
+      .catch((err) => {
+        if (err.response) {
+          err.response.status === 401
+            ? (document.location.href = "/")
+            : console.log(err.response);
+        }
       });
   }, [dispatch, getAllPublications, id, userState.userId]);
 
