@@ -16,6 +16,7 @@ import {
   IPublication,
   IWaiting,
 } from "../../Interfaces/BasicInterfaces";
+import { Button } from "@material-ui/core";
 
 interface RootState {
   user: User;
@@ -172,6 +173,16 @@ export const Home: React.FC = () => {
     return "user-publication";
   };
 
+  const logOut = () => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}`.concat("auth/logout"))
+      .then(() => {
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("userId");
+        document.location.href = "/";
+      });
+  };
+
   return (
     <div className="container home-main d-flex">
       <Header />
@@ -180,7 +191,7 @@ export const Home: React.FC = () => {
           <div className="user-image"></div>
           <div className="user-nickname">{userState.nickname}</div>
         </div>
-        {!myPage && (
+        {(!myPage && (
           <div className="user-add-friend-button">
             <AddFriendButton
               sendFriendRequest={sendFriendRequest}
@@ -188,6 +199,12 @@ export const Home: React.FC = () => {
               follow={userState.follow}
               friends={userState.friends}
             />
+          </div>
+        )) || (
+          <div>
+            <Button variant="outlined" onClick={logOut}>
+              Log Out
+            </Button>
           </div>
         )}
       </div>

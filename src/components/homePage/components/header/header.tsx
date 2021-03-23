@@ -27,7 +27,7 @@ interface DefaultRootState {
 const Header: React.FC = () => {
   const nicknameRef = React.useRef<any>();
   const anchorElRef = React.useRef<null | HTMLDivElement>(null);
-  const [render, setRender] = React.useState<boolean>(true);
+  const [render, setRender] = React.useState<boolean | null>(true);
 
   const headerState: DefaultRootState = useSelector(({ user }: RootState) => {
     const { _id: userId } = user;
@@ -38,9 +38,13 @@ const Header: React.FC = () => {
   const { userId } = headerState;
 
   React.useEffect(() => {
-    userId === sessionStorage.getItem("userId")
-      ? setRender(true)
-      : setRender(false);
+    if (sessionStorage.getItem("userId")) {
+      userId === sessionStorage.getItem("userId")
+        ? setRender(true)
+        : setRender(false);
+    } else {
+      setRender(null);
+    }
   }, [userId]);
 
   const findByNickname = () => {
@@ -72,9 +76,11 @@ const Header: React.FC = () => {
   };
 
   const goMyPage = () => {
-    document.location.href = `${process.env.REACT_APP_CLIENT_URL}`.concat(
-      `id=${sessionStorage.getItem("userId")}`
-    );
+    document.location.href = sessionStorage.getItem("userId")
+      ? `${process.env.REACT_APP_CLIENT_URL}`.concat(
+          `id=${sessionStorage.getItem("userId")}`
+        )
+      : "/";
   };
 
   return (
@@ -89,7 +95,9 @@ const Header: React.FC = () => {
               className="d-flex header-typography"
             >
               <div className="header-logo">Social Network</div>
-              {!render && <div className="header-link-my-page">My page</div>}
+              {render !== null && !render && (
+                <div className="header-link-my-page">My page</div>
+              )}
             </Typography>
             <div className="d-flex align-items-center root-nav">
               {render && (
