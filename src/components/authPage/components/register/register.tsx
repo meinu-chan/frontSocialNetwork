@@ -69,7 +69,7 @@ const register: React.FC<IAuth> = ({
 
   return (
     <>
-      <h2>Sign In</h2>
+      <h2>Sign Up</h2>
       <div className="authDiv">
         <FormGroup id="auth">
           <FormControl>
@@ -104,7 +104,7 @@ const register: React.FC<IAuth> = ({
             color="primary"
             onClick={handleSignin}
           >
-            Sign In
+            Sign Up
           </Button>
         </div>
       </div>
